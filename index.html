@@ -33,7 +33,7 @@
             font-family: 'Inter', sans-serif;
             background-color: #0F172A; /* slate-900 */
             color: #F1F5F9; /* slate-100 */
-            scroll-behavior: smooth;
+            scroll-behavior: smooth; /* SCROLL SUAVE ATIVADO */
         }
 
         /* Animação de Fade-in para as seções */
@@ -71,9 +71,17 @@
         .glow-shadow:hover {
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.7), 0 0 8px rgba(59, 130, 246, 0.4); /* Brilho mais forte no hover */
         }
+
+        /* GLOW DE TEXTO */
+        .text-glow {
+            text-shadow: 0 0 10px #60A5FA, 0 0 15px rgba(96, 165, 250, 0.5); 
+        }
     </style>
 </head>
 <body class="antialiased">
+
+    <!-- Particle Canvas for Background Animation (Z-index baixo para ficar no fundo) -->
+    <canvas id="particles-canvas" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
 
     <!-- Mobile Header (Top Bar, Visible only on small screens) -->
     <header id="mobile-header" class="md:hidden sticky top-0 z-50 bg-[#0F172A]/90 backdrop-blur-sm shadow-xl transition-shadow duration-300">
@@ -104,7 +112,7 @@
     <!-- Sidebar de Navegação Fixa (Desktop - Visível em MD+) -->
     <nav id="sidebar" class="hidden md:block fixed left-0 top-0 w-64 h-full bg-[#0F172A] border-r border-slate-700 p-8 z-50">
         <div class="text-center mb-12">
-            <h1 class="text-3xl font-extrabold text-white">ChickChuck2</h1>
+            <h1 class="text-3xl font-extrabold text-white text-glow">ChickChuck2</h1>
             <p class="text-blue-400 text-sm mt-1">Desenvolvedor</p>
         </div>
         <div class="space-y-4">
@@ -132,7 +140,7 @@
         <section id="home" class="min-h-[calc(100vh-64px)] flex items-center justify-center p-8 text-center fade-in-up">
             <div class="space-y-6 max-w-4xl">
                 <h1 class="text-5xl sm:text-7xl font-extrabold leading-tight">
-                    Olá, eu sou <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">ChickChuck2</span>.
+                    Olá, eu sou <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 text-glow">ChickChuck2</span>.
                 </h1>
                 <p class="text-xl sm:text-2xl text-gray-300">
                     Desenvolvedor Web e de Sistemas, apaixonado por criar ferramentas funcionais e otimizar processos.
@@ -146,7 +154,7 @@
 
         <!-- Seção 2: Sobre Mim -->
         <section id="sobre" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
-            <h2 class="text-4xl font-bold mb-8 border-b-4 border-blue-500 pb-2 inline-block">Sobre Mim</h2>
+            <h2 class="text-4xl font-bold mb-8 border-b-4 border-blue-500 pb-2 inline-block text-glow">Sobre Mim</h2>
             <div class="text-lg space-y-6">
                 <p>
                     Sou um desenvolvedor versátil com experiência na criação de aplicativos de desktop, utilitários para Windows e soluções web. Minha paixão reside em transformar ideias em softwares robustos e eficientes, focando sempre na funcionalidade e na experiência do usuário.
@@ -177,7 +185,7 @@
 
         <!-- Seção 3: Projetos -->
         <section id="projetos" class="p-8 sm:p-16 my-16 fade-in-up">
-            <h2 class="text-4xl font-bold mb-12 text-center border-b-4 border-blue-500 pb-2 inline-block mx-auto">Meus Projetos</h2>
+            <h2 class="text-4xl font-bold mb-12 text-center border-b-4 border-blue-500 pb-2 inline-block mx-auto text-glow">Meus Projetos</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
@@ -360,6 +368,101 @@
             // Garante que a seção inicial apareça imediatamente
             document.getElementById('home').classList.add('animate-loaded');
         });
+
+
+        // 4. Efeito de Partículas no Fundo
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const maxParticles = 50;
+
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor(x, y) {
+                // Posição inicial (aleatória ou fornecida)
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || Math.random() * canvas.height;
+                this.radius = Math.random() * 1.5 + 0.5; // Tamanho do ponto
+                this.color = `rgba(96, 165, 250, ${Math.random() * 0.5 + 0.2})`; // Cor azul com transparência
+                
+                // Velocidade de movimento
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 0.2,
+                    y: (Math.random() - 0.5) * 0.2
+                };
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                // Faz as partículas reaparecerem do lado oposto ao sair da tela (efeito "wrap")
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+                
+                this.draw();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            let opacityValue = 1;
+            // Cria linhas entre partículas próximas
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i; j < particles.length; j++) {
+                    const distance = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+
+                    if (distance < 100) { // Limite de conexão de 100px
+                        opacityValue = 1 - (distance / 100);
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${opacityValue})`; // Linha azul com transparência
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+
+            // Limpa o canvas com uma cor semi-transparente para criar um efeito de rastro
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.2)'; // Cor de fundo do corpo (slate-900) com 0.2 de opacidade
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            connectParticles();
+
+            particles.forEach(particle => {
+                particle.update();
+            });
+        }
+        
+        // Inicialização do efeito de partículas
+        window.addEventListener('resize', setCanvasSize);
+        setCanvasSize();
+        initParticles();
+        animateParticles();
     </script>
 </body>
 </html>
