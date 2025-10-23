@@ -146,6 +146,13 @@
         #back-to-top {
             transition: opacity 0.3s, transform 0.3s;
         }
+
+        /* CLASSES PARA BLUR NO SCROLL (ADICIONADO) */
+        .scrolled-header {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            background-color: #0F172A/95; /* Fundo semi-transparente */
+            backdrop-filter: blur(4px); /* Blur */
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -154,7 +161,7 @@
     <canvas id="particles-canvas" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
 
     <!-- Mobile Header (Top Bar, Visible only on small screens) -->
-    <header id="mobile-header" class="md:hidden sticky top-0 z-50 bg-[#0F172A]/90 backdrop-blur-sm shadow-xl transition-shadow duration-300">
+    <header id="mobile-header" class="md:hidden sticky top-0 z-50 bg-[#0F172A] transition-shadow duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo/Nome -->
@@ -185,7 +192,7 @@
     </header>
 
     <!-- Sidebar de Navegação Fixa (Desktop - Visível em MD+) -->
-    <nav id="sidebar" class="hidden md:block fixed left-0 top-0 w-64 h-full bg-[#0F172A] border-r border-slate-700 p-8 z-50">
+    <nav id="sidebar" class="hidden md:block fixed left-0 top-0 w-64 h-full bg-[#0F172A] border-r border-slate-700 p-8 z-50 transition-all duration-300">
         <div class="text-center mb-12">
             <h1 class="text-3xl font-extrabold text-white text-glow">ChickChuck2</h1>
             <p class="text-blue-400 text-sm mt-1">Desenvolvedor</p>
@@ -208,7 +215,7 @@
             </a>
             <a href="#habilidades" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Tools -->
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
                 <span class="font-medium">Habilidades</span>
             </a>
             <a href="#stats" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
@@ -256,18 +263,18 @@
             </div>
         </section>
 
-        <!-- Seção 2: Sobre Mim -->
+        <!-- Seção 2: Sobre Mim (ATUALIZADA) -->
         <section id="sobre" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-8 border-b-4 border-blue-500 pb-2 inline-block text-glow">Sobre Mim</h2>
             <div class="text-lg space-y-6">
                 <p>
-                    Sou um desenvolvedor versátil com experiência na criação de aplicativos de desktop, utilitários para Windows e soluções web. Minha paixão reside em transformar ideias em softwares robustos e eficientes, focando sempre na funcionalidade e na experiência do usuário.
+                    Sou um desenvolvedor versátil focado em **Desenvolvimento de Jogos 2D**, utilizando C# na Unity. Minha experiência abrange desde utilitários para Windows até soluções web. Minha paixão reside em transformar ideias em softwares robustos e eficientes.
                 </p>
                 <p>
-                    Possuo habilidades em desenvolvimento web (HTML, CSS, JavaScript, Frameworks), mas também adoro explorar o mundo dos utilitários de sistema e automação. O código é meu campo de testes e busco continuamente novas tecnologias para expandir meu arsenal.
+                    Sou adepto da **Programação Orientada a Objetos (POO)**, aplicando princípios como encapsulamento e herança para criar códigos modulares, escaláveis e de fácil manutenção. O código é meu campo de testes e busco continuamente novas tecnologias.
                 </p>
                 <p>
-                    Atualmente, estou focado em aprimorar minhas habilidades em arquitetura de software e design de interfaces, garantindo que meus projetos não apenas funcionem perfeitamente, mas também sejam visualmente agradáveis e intuitivos.
+                    Atualmente, além da minha formação no SENAI, estou focado em aprimorar minhas habilidades em arquitetura de software e design de interfaces, garantindo que meus projetos não apenas funcionem perfeitamente, mas também sejam visualmente agradáveis e intuitivos.
                 </p>
                 <!-- Mini-Grid de Habilidades/Interesses -->
                 <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
@@ -435,7 +442,7 @@
             </div>
         </section>
         
-        <!-- Seção 5: Estatísticas e Impacto (NOVA SEÇÃO) -->
+        <!-- Seção 5: Estatísticas e Impacto -->
         <section id="stats" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Estatísticas & Impacto</h2>
             <p class="text-lg text-gray-300 text-center mb-10">Os números que refletem a dedicação e o alcance do meu trabalho.</p>
@@ -586,37 +593,75 @@
             </div>
         </section>
         
-        <!-- Seção 8: Contato e Redes Sociais -->
+        <!-- Seção 8: Contato e Redes Sociais (COM FORMULÁRIO MOCKUP) -->
         <section id="contato" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Contato & Redes</h2>
             <p class="text-lg text-gray-300 mb-10">Conecte-se comigo e acompanhe meus projetos nas redes:</p>
             
-            <div class="flex flex-wrap justify-center gap-8">
-                <!-- Link LinkedIn -->
-                <a href="https://www.linkedin.com/in/carlos-peres-da-silva-338849205/" target="_blank" 
-                   class="flex items-center space-x-4 p-4 bg-blue-700/50 rounded-lg glow-shadow transform hover:scale-105 transition duration-300 ease-in-out"
-                   aria-label="Perfil do LinkedIn">
-                    <!-- LinkedIn Icon SVG -->
-                    <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-                        <rect x="2" y="9" width="4" height="12"/>
-                        <circle cx="4" cy="4" r="2" fill="currentColor"/>
-                    </svg>
-                    <span class="text-xl font-semibold">LinkedIn (Carlos Peres)</span>
-                </a>
+            <div class="flex flex-col lg:flex-row gap-10">
+                
+                <!-- Coluna de Redes Sociais -->
+                <div class="lg:w-1/3 flex flex-col space-y-6">
+                    <h3 class="text-2xl font-semibold text-blue-400">Minhas Redes</h3>
+                    
+                    <!-- Link LinkedIn -->
+                    <a href="https://www.linkedin.com/in/carlos-peres-da-silva-338849205/" target="_blank" 
+                       class="flex items-center space-x-4 p-4 bg-blue-700/50 rounded-lg glow-shadow transform hover:scale-[1.03] transition duration-300 ease-in-out"
+                       aria-label="Perfil do LinkedIn">
+                        <!-- LinkedIn Icon SVG -->
+                        <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                            <rect x="2" y="9" width="4" height="12"/>
+                            <circle cx="4" cy="4" r="2" fill="currentColor"/>
+                        </svg>
+                        <span class="text-lg font-semibold">LinkedIn (Carlos Peres)</span>
+                    </a>
 
-                <!-- Link Instagram (Inceptum Game) -->
-                <a href="https://www.instagram.com/inceptumthegame/" target="_blank" 
-                   class="flex items-center space-x-4 p-4 bg-pink-700/50 rounded-lg glow-shadow transform hover:scale-105 transition duration-300 ease-in-out"
-                   aria-label="Instagram do projeto Inceptum">
-                    <!-- Instagram Icon SVG -->
-                    <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                    <span class="text-xl font-semibold">Instagram (@inceptumthegame)</span>
-                </a>
+                    <!-- Link Instagram (Inceptum Game) -->
+                    <a href="https://www.instagram.com/inceptumthegame/" target="_blank" 
+                       class="flex items-center space-x-4 p-4 bg-pink-700/50 rounded-lg glow-shadow transform hover:scale-[1.03] transition duration-300 ease-in-out"
+                       aria-label="Instagram do projeto Inceptum">
+                        <!-- Instagram Icon SVG -->
+                        <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                        <span class="text-lg font-semibold">Instagram (@inceptumthegame)</span>
+                    </a>
+                    
+                </div>
+                
+                <!-- Coluna de Formulário Mockup (Para Demonstração de Design) -->
+                <div class="lg:w-2/3 bg-slate-700 p-8 rounded-xl glow-shadow">
+                    <h3 class="text-2xl font-semibold text-white mb-6">Envie uma Mensagem</h3>
+                    <form onsubmit="event.preventDefault(); alert('Este é um formulário de demonstração e não está funcional. Utilize os links acima para contato.');" class="space-y-4">
+                        
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-1">Nome:</label>
+                            <input type="text" id="name" name="name" required 
+                                   class="w-full p-3 bg-slate-600 border border-slate-500 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-white shadow-inner">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email:</label>
+                            <input type="email" id="email" name="email" required 
+                                   class="w-full p-3 bg-slate-600 border border-slate-500 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-white shadow-inner">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-300 mb-1">Mensagem:</label>
+                            <textarea id="message" name="message" rows="4" required 
+                                      class="w-full p-3 bg-slate-600 border border-slate-500 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-white shadow-inner"></textarea>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full p-3 text-lg font-semibold text-white bg-blue-600 rounded-lg glow-shadow transform hover:scale-[1.01] transition duration-300 ease-in-out">
+                            Enviar Demonstração
+                        </button>
+                        
+                    </form>
+                </div>
             </div>
         </section>
 
@@ -960,11 +1005,31 @@
                     backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
                     backToTopBtn.classList.add('opacity-0', 'translate-y-4');
                 }
+                
+                // 6. Efeito de Blur na barra de navegação ao rolar (Desktop e Mobile)
+                const header = document.getElementById('mobile-header');
+                const sidebar = document.getElementById('sidebar');
+
+                if (window.scrollY > 50) {
+                    // Mobile Header: Adiciona blur e shadow
+                    header.classList.add('scrolled-header', 'shadow-xl', 'backdrop-blur-sm', 'bg-[#0F172A]/90');
+                    header.classList.remove('bg-[#0F172A]');
+                    
+                    // Sidebar Desktop: Adiciona shadow
+                    sidebar.classList.add('scrolled-header');
+                } else {
+                    // Mobile Header: Remove blur e shadow
+                    header.classList.remove('scrolled-header', 'shadow-xl', 'backdrop-blur-sm', 'bg-[#0F172A]/90');
+                    header.classList.add('bg-[#0F172A]');
+
+                    // Sidebar Desktop: Remove shadow
+                    sidebar.classList.remove('scrolled-header');
+                }
             });
         });
 
 
-        // 6. Efeito de Partículas no Fundo
+        // 7. Efeito de Partículas no Fundo
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
