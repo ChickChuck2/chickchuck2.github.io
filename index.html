@@ -130,6 +130,17 @@
                 border-right: none;
             }
         }
+        
+        /* Estilo do cursor de digitação */
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .cursor {
+            font-weight: 300;
+            animation: blink 1s step-end infinite;
+            display: inline-block;
+            color: var(--color-accent);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -160,6 +171,7 @@
                 <a href="#sobre" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Sobre Mim</a>
                 <a href="#timeline" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Jornada</a>
                 <a href="#habilidades" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Habilidades</a>
+                <a href="#otimizacao" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Otimização</a>
                 <a href="#projetos" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Projetos</a>
                 <a href="#contato" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Contato</a>
             </div>
@@ -190,8 +202,13 @@
             </a>
             <a href="#habilidades" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Tools -->
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
                 <span class="font-medium">Habilidades</span>
+            </a>
+            <a href="#otimizacao" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
+                <!-- Icone Raio (Performance) -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span class="font-medium">Otimização</span>
             </a>
             <a href="#projetos" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Código -->
@@ -214,9 +231,13 @@
                 <h1 class="text-5xl sm:text-7xl font-extrabold leading-tight">
                     Olá, eu sou <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 text-glow">ChickChuck2</span>.
                 </h1>
-                <p class="text-xl sm:text-2xl text-gray-300">
-                    Desenvolvedor Web e de Sistemas, apaixonado por criar ferramentas funcionais e otimizar processos.
+                <!-- Novo: Efeito de Digitação -->
+                <p class="text-xl sm:text-2xl text-gray-300 h-8">
+                    <span id="typing-text" class="font-semibold text-white"></span>
+                    <span class="cursor text-xl sm:text-2xl">|</span>
                 </p>
+                <!-- Fim do Novo -->
+                
                 <!-- Botão principal animado com Glow -->
                 <a href="#projetos" class="inline-block px-8 py-3 mt-4 text-lg font-semibold text-white bg-blue-600 rounded-full glow-shadow transform hover:scale-105 transition duration-300 ease-in-out">
                     Ver Meus Projetos
@@ -255,7 +276,7 @@
             </div>
         </section>
         
-        <!-- Seção 3: Linha do Tempo (Jornada & Educação) - ATUALIZADA -->
+        <!-- Seção 3: Linha do Tempo (Jornada & Educação) -->
         <section id="timeline" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Jornada & Educação</h2>
             
@@ -322,7 +343,7 @@
             </div>
         </section>
 
-        <!-- Seção 4: Habilidades e Ferramentas (Agora Seção 4) -->
+        <!-- Seção 4: Habilidades e Ferramentas -->
         <section id="habilidades" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Habilidades & Ferramentas</h2>
             <p class="text-lg text-gray-300 mb-8">Tecnologias e ferramentas que domino no desenvolvimento de softwares e jogos.</p>
@@ -402,8 +423,28 @@
                 
             </div>
         </section>
+        
+        <!-- Seção 5: Otimização e Performance (NOVA SEÇÃO) -->
+        <section id="otimizacao" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
+            <h2 class="text-4xl font-bold mb-8 border-b-4 border-blue-500 pb-2 inline-block text-glow">Otimização & Performance</h2>
+            <div class="text-lg space-y-6">
+                <p>
+                    A performance não é apenas um recurso, é uma mentalidade. Meus projetos são desenvolvidos com foco em eficiência de recursos e velocidade de execução, garantindo a melhor experiência ao usuário.
+                </p>
+                <ul class="list-disc list-inside space-y-2 pl-4 text-gray-300">
+                    <li>**Código Limpo e Modular:** Uso de padrões de projeto para garantir escalabilidade e manutenção.</li>
+                    <li>**Otimização de Renderização (Games/Web):** Foco em baixo *draw call* na Unity e minificação de assets na Web.</li>
+                    <li>**Uso Eficiente de Threads:** Implementação de processamento assíncrono para evitar gargalos em aplicações de desktop (C#/Python).</li>
+                    <li>**Gerenciamento de Memória:** Atenção especial à desalocação de recursos em C/C++ para evitar vazamentos (*memory leaks*).</li>
+                </ul>
+                <p class="mt-6 text-blue-400 font-medium">
+                    "Um sistema rápido não é apenas um luxo, é uma necessidade para a retenção do usuário."
+                </p>
+            </div>
+        </section>
 
-        <!-- Seção 5: Projetos (Agora Seção 5) -->
+
+        <!-- Seção 6: Projetos -->
         <section id="projetos" class="p-8 sm:p-16 my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 text-center border-b-4 border-blue-500 pb-2 inline-block mx-auto text-glow">Meus Projetos</h2>
             <p class="text-lg text-gray-300 text-center mb-8">Clique em qualquer projeto para ver detalhes, tecnologias e links.</p>
@@ -501,7 +542,7 @@
             </div>
         </section>
         
-        <!-- Seção 6: Contato e Redes Sociais (Agora Seção 6) -->
+        <!-- Seção 7: Contato e Redes Sociais -->
         <section id="contato" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Contato & Redes</h2>
             <p class="text-lg text-gray-300 mb-10">Conecte-se comigo e acompanhe meus projetos nas redes:</p>
@@ -711,7 +752,56 @@
         }
 
 
+        // --- EFEITO DE DIGITAÇÃO ---
+        const typingElement = document.getElementById('typing-text');
+        const professions = [
+            "Desenvolvedor de Sistemas", 
+            "Especialista em Utilitários Windows", 
+            "Game Developer (Unity)",
+            "Apaixonado por Otimização"
+        ];
+        let professionIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeWriter() {
+            const currentProfession = professions[professionIndex];
+            
+            if (isDeleting) {
+                // Deletando
+                typingElement.textContent = currentProfession.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                // Escrevendo
+                typingElement.textContent = currentProfession.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = 80;
+            if (isDeleting) {
+                typeSpeed = 40; // Mais rápido ao deletar
+            }
+
+            if (!isDeleting && charIndex === currentProfession.length) {
+                // Parar no final da frase
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // Terminou de deletar, ir para a próxima frase
+                isDeleting = false;
+                professionIndex = (professionIndex + 1) % professions.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeWriter, typeSpeed);
+        }
+        // --- FIM EFEITO DE DIGITAÇÃO ---
+
+
         document.addEventListener('DOMContentLoaded', () => {
+            // Inicia o efeito de digitação
+            typeWriter();
+
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             const navLinks = document.querySelectorAll('#mobile-menu a, #sidebar a');
