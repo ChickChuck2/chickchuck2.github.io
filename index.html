@@ -36,6 +36,37 @@
             scroll-behavior: smooth; /* SCROLL SUAVE ATIVADO */
         }
 
+        /* --- ESTILO PERSONALIZADO DA SCROLLBAR (BRILHO AZUL) --- */
+        /* Para navegadores WebKit (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar {
+            width: 8px; /* Largura da barra */
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0F172A; /* Fundo escuro (slate-900) */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3B82F6; /* Cor principal azul (blue-500) */
+            border-radius: 4px;
+            /* Efeito de brilho sutil */
+            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); 
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #60A5FA; /* Azul mais claro no hover */
+            box-shadow: 0 0 10px rgba(96, 165, 250, 0.8); /* Brilho mais intenso no hover */
+        }
+
+        /* Para Firefox */
+        html {
+            scrollbar-color: #3B82F6 #0F172A; /* thumb track */
+            scrollbar-width: thin;
+        }
+        /* -------------------------------------------------------- */
+
+
         /* Animação de Fade-in para as seções */
         .fade-in-up {
             opacity: 0;
@@ -159,7 +190,7 @@
             </a>
             <a href="#habilidades" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Tools -->
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
                 <span class="font-medium">Habilidades</span>
             </a>
             <a href="#projetos" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
