@@ -20,6 +20,8 @@
 
     <!-- Carrega Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega D3.js para visualização de dados (Radar Chart) -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <!-- Configuração do Tema e Fonte Inter -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
@@ -153,6 +155,49 @@
             background-color: #0F172A/95; /* Fundo semi-transparente */
             backdrop-filter: blur(4px); /* Blur */
         }
+
+        /* CLI Console Styles */
+        #cli-container {
+            bottom: 20px;
+            right: 20px;
+            z-index: 60; /* Above back-to-top button */
+            transition: all 0.3s ease-in-out;
+        }
+        #cli-window {
+            width: 350px;
+            height: 400px;
+            background-color: rgba(15, 23, 42, 0.95); /* slate-900 semi-transparent */
+            border: 1px solid var(--color-primary);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+        #cli-output {
+            flex-grow: 1;
+            overflow-y: auto;
+            font-size: 0.85rem;
+            padding: 10px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-family: monospace;
+            color: #0F0; /* Green text for console feel */
+            scrollbar-color: #3B82F6 #0F172A;
+            scrollbar-width: thin;
+        }
+        #cli-input-container {
+            padding: 8px 10px;
+            border-top: 1px solid var(--color-primary);
+            display: flex;
+        }
+        #cli-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #F1F5F9;
+            flex-grow: 1;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -215,7 +260,7 @@
             </a>
             <a href="#habilidades" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Tools -->
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
                 <span class="font-medium">Habilidades</span>
             </a>
             <a href="#stats" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
@@ -361,84 +406,72 @@
             </div>
         </section>
 
-        <!-- Seção 4: Habilidades e Ferramentas -->
+        <!-- Seção 4: Habilidades e Ferramentas (RADAR CHART ADICIONADO) -->
         <section id="habilidades" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Habilidades & Ferramentas</h2>
-            <p class="text-lg text-gray-300 mb-8">Tecnologias e ferramentas que domino no desenvolvimento de softwares e jogos.</p>
+            <p class="text-lg text-gray-300 mb-8">Visualização dinâmica das minhas principais áreas de proficiência.</p>
             
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
+            <div class="flex flex-col lg:flex-row gap-10 items-center justify-center">
                 
-                <!-- Card Habilidade: Unity (Motor de Jogo) -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <svg class="skill-icon w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Unity Icon"><path d="M12 2L3 7l9 5 9-5-9-5z"/><path d="M3 17l9 5 9-5"/><path d="M3 7v10"/><path d="M21 7v10"/><path d="M12 12v5"/></svg>
-                    <span class="mt-3 text-sm font-semibold">Unity</span>
+                <!-- Container para o Radar Chart (D3.js) -->
+                <div class="lg:w-1/2 w-full flex justify-center items-center p-4 bg-slate-900 rounded-xl glow-shadow border border-blue-600">
+                    <svg id="radar-chart" width="400" height="400" viewBox="0 0 400 400" class="w-full h-full max-w-sm"></svg>
                 </div>
 
-                <!-- Card Habilidade: C# -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-4xl font-extrabold text-[#7F00FF]" role="img" aria-label="C Sharp Icon">C#</span>
-                    <span class="mt-3 text-sm font-semibold">C Sharp</span>
-                </div>
-                
-                <!-- Card Habilidade: C++ -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-4xl font-extrabold text-[#00599C]" role="img" aria-label="C Plus Plus Icon">C++</span>
-                    <span class="mt-3 text-sm font-semibold">C Plus Plus</span>
-                </div>
-                
-                <!-- Card Habilidade: C -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-4xl font-extrabold text-[#555555]" role="img" aria-label="C Language Icon">C</span>
-                    <span class="mt-3 text-sm font-semibold">Linguagem C</span>
-                </div>
+                <!-- Cards de Habilidade (mantidos como detalhe) -->
+                <div class="lg:w-1/2 w-full grid grid-cols-2 gap-4">
+                    
+                    <!-- Card Habilidade: Unity (Motor de Jogo) -->
+                    <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
+                        <svg class="skill-icon w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Unity Icon"><path d="M12 2L3 7l9 5 9-5-9-5z"/><path d="M3 17l9 5 9-5"/><path d="M3 7v10"/><path d="M21 7v10"/><path d="M12 12v5"/></svg>
+                        <span class="mt-3 text-sm font-semibold">Unity</span>
+                    </div>
 
-                <!-- Card Habilidade: PlasticSCM -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-4xl font-extrabold text-[#F00]" role="img" aria-label="Plastic SCM Icon">SCM</span>
-                    <span class="mt-3 text-sm font-semibold">Plastic SCM</span>
-                </div>
-                
-                <!-- Card Habilidade: Android Studio -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <!-- Icone Android -->
-                    <svg class="skill-icon w-10 h-10 text-[#A4C639]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Android Studio Icon"><path d="M17.8 17.8l-1.6-1.6M8.2 17.8l1.6-1.6"/><path d="M12 21a2 2 0 0 1-2-2v-4a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2z"/><path d="M16 8a4 4 0 0 0-8 0"/></svg>
-                    <span class="mt-3 text-sm font-semibold">Android Studio</span>
-                </div>
+                    <!-- Card Habilidade: C# -->
+                    <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
+                        <span class="skill-icon text-4xl font-extrabold text-[#7F00FF]" role="img" aria-label="C Sharp Icon">C#</span>
+                        <span class="mt-3 text-sm font-semibold">C Sharp</span>
+                    </div>
+                    
+                    <!-- Card Habilidade: C++ -->
+                    <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
+                        <span class="skill-icon text-4xl font-extrabold text-[#00599C]" role="img" aria-label="C Plus Plus Icon">C++</span>
+                        <span class="mt-3 text-sm font-semibold">C Plus Plus</span>
+                    </div>
+                    
+                    <!-- Card Habilidade: C -->
+                    <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
+                        <span class="skill-icon text-4xl font-extrabold text-[#555555]" role="img" aria-label="C Language Icon">C</span>
+                        <span class="mt-3 text-sm font-semibold">Linguagem C</span>
+                    </div>
 
-                <!-- Card Habilidade: Java -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-3xl font-extrabold text-[#F8981D]" role="img" aria-label="Java Icon">Java</span>
-                    <span class="mt-3 text-sm font-semibold">Java</span>
+                    <!-- Card Habilidade: Python -->
+                    <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
+                        <!-- Icone Python (Cobra) -->
+                        <svg class="skill-icon w-10 h-10 text-[#306998]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Python Icon"><path d="M12 2a4 4 0 0 0-4 4v3a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"/><path d="M10 12h4"/><path d="M12 16v6"/><path d="M16 18h2"/><path d="M6 18h2"/></svg>
+                        <span class="mt-3 text-sm font-semibold">Python</span>
+                    </div>
+                    
+                    <!-- Card Habilidade: POO/Arquitetura -->
+                    <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
+                        <!-- Icone Arquitetura -->
+                        <svg class="skill-icon w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Architecture Icon"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M12 3v18"/><path d="M3 12h18"/><path d="M12 3v18"/><path d="M3 12h18"/></svg>
+                        <span class="mt-3 text-sm font-semibold">POO/Arquitetura</span>
+                    </div>
+                    
+                    <!-- Card Habilidade: PlasticSCM -->
+                    <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
+                        <span class="skill-icon text-4xl font-extrabold text-[#F00]" role="img" aria-label="Plastic SCM Icon">SCM</span>
+                        <span class="mt-3 text-sm font-semibold">Plastic SCM</span>
+                    </div>
+                    
+                    <!-- Card Habilidade: Git -->
+                    <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
+                        <!-- Icone Git (Fork) -->
+                        <svg class="skill-icon w-10 h-10 text-[#F14E32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Git Icon"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><line x1="18" y1="9" x2="18" y2="21"/><line x1="6" y1="9" x2="6" y2="21"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
+                        <span class="mt-3 text-sm font-semibold">Git</span>
+                    </div>
                 </div>
-
-                <!-- Card Habilidade: Visual Studio 2026 (assumindo o VS Code SVG para a IDE) -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <!-- Ícone VS Code (Visual Studio geralmente usa o mesmo branding de logo) -->
-                    <svg class="skill-icon w-10 h-10 text-[#007ACC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Visual Studio Icon"><path d="M12 3l10 5.5v7L12 21 2 15.5v-7L12 3z"/><path d="M2 7.5L12 13M22 7.5L12 13M12 13V21"/></svg>
-                    <span class="mt-3 text-sm font-semibold">Visual Studio</span>
-                </div>
-                
-                <!-- Card Habilidade: VS Code -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <!-- Ícone VS Code -->
-                    <svg class="skill-icon w-10 h-10 text-[#007ACC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="VS Code Icon"><path d="M12 3l10 5.5v7L12 21 2 15.5v-7L12 3z"/><path d="M2 7.5L12 13M22 7.5L12 13M12 13V21"/></svg>
-                    <span class="mt-3 text-sm font-semibold">VS Code</span>
-                </div>
-
-                <!-- Card Habilidade: Python -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <!-- Icone Python (Cobra) -->
-                    <svg class="skill-icon w-10 h-10 text-[#306998]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Python Icon"><path d="M12 2a4 4 0 0 0-4 4v3a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"/><path d="M10 12h4"/><path d="M12 16v6"/><path d="M16 18h2"/><path d="M6 18h2"/></svg>
-                    <span class="mt-3 text-sm font-semibold">Python</span>
-                </div>
-                
-                <!-- Card Habilidade: Git -->
-                <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <!-- Icone Git (Fork) -->
-                    <svg class="skill-icon w-10 h-10 text-[#F14E32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Git Icon"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><line x1="18" y1="9" x2="18" y2="21"/><line x1="6" y1="9" x2="6" y2="21"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
-                    <span class="mt-3 text-sm font-semibold">Git</span>
-                </div>
-                
             </div>
         </section>
         
@@ -630,6 +663,29 @@
         </section>
 
     </main>
+    
+    <!-- Console Interativo (CLI Simulation) -->
+    <div id="cli-container" class="fixed hidden md:block">
+        <button id="cli-toggle-btn" class="absolute -top-12 right-0 p-3 bg-blue-600 rounded-t-lg text-white glow-shadow hover:bg-blue-700 transition duration-300" aria-label="Abrir Console">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3 3-3m-3 6h.01M16 19H6a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-6.189l-1.92 1.92a.5.5 0 01-.707 0L14.189 19z"></path></svg>
+        </button>
+        <div id="cli-window" class="rounded-xl hidden">
+            <div id="cli-header" class="p-2 bg-blue-600 rounded-t-xl text-xs font-semibold flex justify-between items-center text-white">
+                <span>> ChickChuck2 Terminal V1.0</span>
+                <button id="cli-close-btn" class="text-white hover:text-gray-200 transition" aria-label="Fechar Console">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="cli-output">
+                Bem-vindo ao Terminal Interativo de ChickChuck2.<br>
+                Digite 'help' para comandos.
+            </div>
+            <div id="cli-input-container">
+                <span class="text-blue-400 font-bold mr-1">guest@portfolio:~$</span>
+                <input type="text" id="cli-input" autofocus>
+            </div>
+        </div>
+    </div>
 
     <!-- Botão Voltar ao Topo (Back to Top Button) -->
     <a id="back-to-top" href="#home" class="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg glow-shadow opacity-0 transform translate-y-4 hover:bg-blue-700 transition duration-300 ease-in-out z-40" aria-label="Voltar ao Topo">
@@ -990,6 +1046,452 @@
                     sidebar.classList.remove('scrolled-header');
                 }
             });
+        });
+
+
+        // 7. Efeito de Partículas no Fundo
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const maxParticles = 50;
+
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor(x, y) {
+                // Posição inicial (aleatória ou fornecida)
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || Math.random() * canvas.height;
+                this.radius = Math.random() * 1.5 + 0.5; // Tamanho do ponto
+                this.color = `rgba(96, 165, 250, ${Math.random() * 0.5 + 0.2})`; // Cor azul com transparência
+                
+                // Velocidade de movimento
+                this.velocity = {
+                    x: (Math.random() - 0.5) * 0.2,
+                    y: (Math.random() - 0.5) * 0.2
+                };
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+
+            update() {
+                this.x += this.velocity.x;
+                this.y += this.velocity.y;
+
+                // Faz as partículas reaparecerem do lado oposto ao sair da tela (efeito "wrap")
+                if (this.x < 0) this.x = canvas.width;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y < 0) this.y = canvas.height;
+                if (this.y > canvas.height) this.y = 0;
+                
+                this.draw();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            let opacityValue = 1;
+            // Cria linhas entre partículas próximas
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i; j < particles.length; j++) {
+                    const distance = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+
+                    if (distance < 100) { // Limite de conexão de 100px
+                        opacityValue = 1 - (distance / 100);
+                        ctx.strokeStyle = `rgba(59, 130, 246, ${opacityValue})`; // Linha azul com transparência
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            requestAnimationFrame(animateParticles);
+
+            // Limpa o canvas com uma cor semi-transparente para criar um efeito de rastro
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.2)'; // Cor de fundo do corpo (slate-900) com 0.2 de opacidade
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            connectParticles();
+
+            particles.forEach(particle => {
+                particle.update();
+            });
+        }
+        
+        // Inicialização do efeito de partículas
+        window.addEventListener('resize', setCanvasSize);
+        setCanvasSize();
+        initParticles();
+        animateParticles();
+
+
+        // --- NOVO: Lógica do Console Interativo (CLI) ---
+        const cliContainer = document.getElementById('cli-container');
+        const cliToggleBtn = document.getElementById('cli-toggle-btn');
+        const cliCloseBtn = document.getElementById('cli-close-btn');
+        const cliWindow = document.getElementById('cli-window');
+        const cliOutput = document.getElementById('cli-output');
+        const cliInput = document.getElementById('cli-input');
+        const cliHistory = [];
+        let historyIndex = -1;
+
+        const cliCommands = {
+            help: 'Comandos disponíveis:<br>- help (esta lista)<br>- projects (lista de projetos)<br>- about (informações)<br>- clear (limpa o terminal).<br>Use as setas para navegar no histórico.',
+            projects: `Projetos Ativos:
+  - rule34downloader (Python/C#)
+  - windowstranslator (C++/OCR)
+  - inceptum (Unity/C# - EM ANDAMENTO)
+  Digite 'projects [nome]' para detalhes (ex: projects inceptum).`,
+            about: `Nome: ChickChuck2 (Carlos Peres da Silva)
+Foco: Desenvolvimento de Jogos 2D, Sistemas Windows, POO.
+Skills: C#, Unity, Python, C++.
+Detalhes na seção #sobre.`,
+            clear: '' // Special command handled below
+        };
+
+        function printToCLI(text, color = '#0F0') {
+            const line = document.createElement('div');
+            line.innerHTML = text; 
+            line.style.color = color;
+            cliOutput.appendChild(line);
+            cliOutput.scrollTop = cliOutput.scrollHeight; // Scroll para o final
+        }
+
+        function executeCommand(command) {
+            const parts = command.trim().toLowerCase().split(/\s+/);
+            const cmd = parts[0];
+            const arg = parts.slice(1).join(' ');
+            
+            printToCLI(`<span style="color:#60A5FA; font-weight: bold;">guest@portfolio:~$</span> ${command}`, '#F1F5F9');
+
+            if (cliCommands[cmd] !== undefined && cmd !== 'clear') {
+                printToCLI(cliCommands[cmd], '#0F0');
+            } else if (cmd === 'clear') {
+                cliOutput.innerHTML = '';
+                printToCLI('Bem-vindo ao Terminal Interativo de ChickChuck2.<br>Digite \'help\' para comandos.', '#0F0');
+            } else if (cmd === 'projects' && arg) {
+                const projectKey = Object.keys(projectData).find(key => key.toLowerCase() === arg.toLowerCase());
+                if (projectKey) {
+                    printToCLI(`Detalhes do Projeto: ${projectData[projectKey].title}`, '#0F0');
+                    printToCLI(`Descrição: ${projectData[projectKey].description.substring(0, 100)}...`, '#0F0');
+                    printToCLI(`Tecnologias: ${projectData[projectKey].techs.join(', ')}`, '#0F0');
+                } else {
+                    printToCLI(`ERRO: Projeto '${arg}' não encontrado.`, 'red');
+                }
+            } else if (command) {
+                printToCLI(`ERRO: Comando '${command}' não encontrado. Digite 'help'.`, 'red');
+            }
+        }
+
+        cliInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const command = cliInput.value.trim();
+                if (command) {
+                    cliHistory.unshift(command);
+                    historyIndex = -1; // Reset index after new command
+                    executeCommand(command);
+                }
+                cliInput.value = '';
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                if (cliHistory.length > 0) {
+                    historyIndex = Math.min(historyIndex + 1, cliHistory.length - 1);
+                    cliInput.value = cliHistory[historyIndex];
+                }
+            } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    cliInput.value = cliHistory[historyIndex];
+                } else {
+                    historyIndex = -1;
+                    cliInput.value = '';
+                }
+            }
+        });
+
+        cliToggleBtn.addEventListener('click', () => {
+            cliWindow.classList.toggle('hidden');
+            if (!cliWindow.classList.contains('hidden')) {
+                cliInput.focus();
+            }
+        });
+
+        cliCloseBtn.addEventListener('click', () => {
+            cliWindow.classList.add('hidden');
+        });
+
+
+        // --- NOVO: Lógica do Radar Chart (D3.js) ---
+        function renderRadarChart() {
+            // Dados simulados de proficiência (valor de 0.0 a 1.0)
+            const data = [
+                { skill: 'C#', value: 0.90 },
+                { skill: 'Unity', value: 0.85 },
+                { skill: 'POO/Arquitetura', value: 0.95 },
+                { skill: 'Python', value: 0.70 },
+                { skill: 'Web Dev (Front)', value: 0.75 },
+                { skill: 'C/C++', value: 0.60 },
+            ];
+
+            // Configurações do gráfico
+            const chartWidth = 400;
+            const chartHeight = 400;
+            const radius = Math.min(chartWidth, chartHeight) / 2 - 30;
+            const centerX = chartWidth / 2;
+            const centerY = chartHeight / 2;
+
+            const total = data.length;
+            const angleSlice = (Math.PI * 2) / total;
+
+            const rScale = d3.scaleLinear()
+                .range([0, radius])
+                .domain([0, 1]); // Proficiência de 0 a 1 (0% a 100%)
+
+            // Seleção e transformação do SVG
+            const svg = d3.select("#radar-chart")
+                .attr("width", chartWidth)
+                .attr("height", chartHeight)
+                .append("g")
+                .attr("transform", `translate(${centerX}, ${centerY})`);
+
+            // Converter dados para formato de path (polígono)
+            const radarLine = d3.lineRadial()
+                .curve(d3.curveLinearClosed)
+                .radius(d => rScale(d.value))
+                .angle((d, i) => i * angleSlice);
+
+            // 1. Círculos de Fundo (Background Rings)
+            const levels = 5;
+            const levelFactor = radius / levels;
+
+            for (let i = 0; i < levels; i++) {
+                svg.append("circle")
+                    .attr("cx", 0)
+                    .attr("cy", 0)
+                    .attr("r", levelFactor * (i + 1))
+                    .style("fill", "none")
+                    .style("stroke", "rgba(59, 130, 246, 0.2)") // blue-500 transparente
+                    .style("stroke-width", 1);
+            }
+
+            // 2. Eixos (Linhas de Habilidade)
+            const axis = svg.selectAll(".axis")
+                .data(data)
+                .enter()
+                .append("g")
+                .attr("class", "axis");
+
+            axis.append("line")
+                .attr("x1", 0)
+                .attr("y1", 0)
+                // Usando seno e cosseno para calcular o ponto final de cada raio
+                .attr("x2", (d, i) => rScale(1) * Math.sin(i * angleSlice))
+                .attr("y2", (d, i) => rScale(1) * Math.cos(i * angleSlice) * -1)
+                .style("stroke", "rgba(96, 165, 250, 0.5)")
+                .style("stroke-width", "1px");
+
+            // 3. Labels das Habilidades
+            axis.append("text")
+                .attr("class", "legend")
+                .style("font-size", "12px")
+                .attr("text-anchor", "middle")
+                .attr("x", (d, i) => (rScale(1.1) * Math.sin(i * angleSlice))) // 1.1 para espaçamento
+                .attr("y", (d, i) => (rScale(1.1) * Math.cos(i * angleSlice)) * -1) // -1 para inverter o eixo Y
+                .attr("dy", "0.35em")
+                .text(d => d.skill)
+                .style("fill", "white")
+                .style("filter", "drop-shadow(0 0 2px black)"); 
+
+            // 4. Área de Proficiência (O Polígono Principal)
+            svg.append("path")
+                .datum(data)
+                .attr("d", radarLine)
+                .style("fill", "rgba(59, 130, 246, 0.4)") // blue-500 semi-transparente
+                .style("stroke", "rgba(59, 130, 246, 0.8)")
+                .style("stroke-width", "2px")
+                .style("filter", "drop-shadow(0 0 8px rgba(59, 130, 246, 0.8))") // Brilho forte
+                .style("opacity", 0) // Começa invisível para a transição
+                .transition()
+                .duration(1500)
+                .style("opacity", 1);
+
+            // 5. Pontos de Dados (Data Points)
+            const points = svg.selectAll(".data-point")
+                .data(data)
+                .enter().append("circle")
+                .attr("class", "data-point")
+                .attr("r", 5) // Tamanho do ponto
+                .attr("cx", 0) // Inicia no centro
+                .attr("cy", 0)
+                .style("fill", "#60A5FA") // blue-400
+                .style("stroke", "white")
+                .style("stroke-width", "1.5px")
+                .style("filter", "drop-shadow(0 0 5px white)")
+                .on('mouseover', function(d) {
+                    const value = Math.round(d.value * 100) + '%';
+                    d3.select(this)
+                        .transition().duration(200)
+                        .attr('r', 8)
+                        .style('fill', 'white');
+                    // Tooltip
+                    svg.append("text")
+                        .attr('class', 'tooltip-text')
+                        .attr('x', d3.select(this).attr('cx'))
+                        .attr('y', parseFloat(d3.select(this).attr('cy')) - 10)
+                        .attr('text-anchor', 'middle')
+                        .style('fill', '#F1F5F9')
+                        .style('font-weight', 'bold')
+                        .style('font-size', '14px')
+                        .text(value);
+                })
+                .on('mouseout', function(d) {
+                    d3.select(this)
+                        .transition().duration(200)
+                        .attr('r', 5)
+                        .style('fill', '#60A5FA');
+                    svg.select('.tooltip-text').remove();
+                })
+                .transition()
+                .duration(1500)
+                .attr("cx", (d, i) => rScale(d.value) * Math.sin(i * angleSlice))
+                .attr("cy", (d, i) => rScale(d.value) * Math.cos(i * angleSlice) * -1); // Inverte Y
+
+        }
+
+
+        // Observer para renderizar o gráfico ao entrar na tela
+        const habilidadesSection = document.getElementById('habilidades');
+        const radarObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    renderRadarChart();
+                    observer.unobserve(habilidadesSection); 
+                }
+            });
+        }, { threshold: 0.3 }); 
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicia o efeito de digitação
+            typeWriter();
+
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinks = document.querySelectorAll('#mobile-menu a, #sidebar a');
+            const sections = document.querySelectorAll('.fade-in-up');
+
+            // 1. Funcionalidade do Menu Mobile
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // 2. Fechar menu mobile ao clicar em um link
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Se o link estiver dentro do menu mobile, feche-o
+                    if (!mobileMenu.classList.contains('hidden')) {
+                         mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+
+            // 3. Animação de Scroll (Fade-in-up)
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-loaded');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // Garante que a seção inicial apareça imediatamente
+            document.getElementById('home').classList.add('animate-loaded');
+
+            // Inicia a observação da seção de estatísticas
+            statsObserver.observe(statsSection);
+
+
+            // 4. Modal Event Listeners
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const projectKey = card.getAttribute('data-project');
+                    openModal(projectKey);
+                });
+            });
+            
+            closeModalBtn.addEventListener('click', closeModal);
+
+            // Fechar modal ao clicar no backdrop (fora do conteúdo)
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // 5. Back to Top Logic
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) { // Mostra após rolar 400px
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-4');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-4');
+                }
+                
+                // 6. Efeito de Blur na barra de navegação ao rolar (Desktop e Mobile)
+                const header = document.getElementById('mobile-header');
+                const sidebar = document.getElementById('sidebar');
+
+                if (window.scrollY > 50) {
+                    // Mobile Header: Adiciona blur e shadow
+                    header.classList.add('scrolled-header', 'shadow-xl', 'backdrop-blur-sm', 'bg-[#0F172A]/90');
+                    header.classList.remove('bg-[#0F172A]');
+                    
+                    // Sidebar Desktop: Adiciona shadow
+                    sidebar.classList.add('scrolled-header');
+                } else {
+                    // Mobile Header: Remove blur e shadow
+                    header.classList.remove('scrolled-header', 'shadow-xl', 'backdrop-blur-sm', 'bg-[#0F172A]/90');
+                    header.classList.add('bg-[#0F172A]');
+
+                    // Sidebar Desktop: Remove shadow
+                    sidebar.classList.remove('scrolled-header');
+                }
+            });
+
+            // Inicia a observação do radar chart
+            radarObserver.observe(habilidadesSection);
         });
 
 
