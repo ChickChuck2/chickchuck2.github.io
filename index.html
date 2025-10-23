@@ -81,6 +81,24 @@
         .skill-icon {
             filter: drop-shadow(0 0 5px var(--color-accent));
         }
+
+        /* Estilos específicos para a Linha do Tempo (Timeline) */
+        .left-timeline .bg-slate-700 {
+            border-left: 4px solid var(--color-primary);
+        }
+        .right-timeline .bg-slate-700 {
+            border-right: 4px solid var(--color-primary);
+        }
+        @media (min-width: 768px) {
+            .left-timeline .bg-slate-700 {
+                border-left: none;
+                border-right: 4px solid var(--color-primary);
+            }
+            .right-timeline .bg-slate-700 {
+                border-left: 4px solid var(--color-primary);
+                border-right: none;
+            }
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -97,7 +115,7 @@
                     ChickChuck2
                 </a>
                 <!-- Botão Mobile Menu (Ativado via JS) -->
-                <button id="mobile-menu-btn" class="p-2 text-gray-400 hover:text-white rounded-md transition-colors duration-300">
+                <button id="mobile-menu-btn" aria-label="Abrir Menu" class="p-2 text-gray-400 hover:text-white rounded-md transition-colors duration-300">
                     <!-- Icone SVG de menu (três barras) -->
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </button>
@@ -109,6 +127,7 @@
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Início</a>
                 <a href="#sobre" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Sobre Mim</a>
+                <a href="#timeline" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Jornada</a>
                 <a href="#habilidades" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Habilidades</a>
                 <a href="#projetos" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Projetos</a>
                 <a href="#contato" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Contato</a>
@@ -133,9 +152,14 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                 <span class="font-medium">Sobre Mim</span>
             </a>
+            <a href="#timeline" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
+                <!-- Icone Relógio/Tempo -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="font-medium">Jornada</span>
+            </a>
             <a href="#habilidades" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Tools -->
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
                 <span class="font-medium">Habilidades</span>
             </a>
             <a href="#projetos" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
@@ -182,7 +206,7 @@
                 <p>
                     Atualmente, estou focado em aprimorar minhas habilidades em arquitetura de software e design de interfaces, garantindo que meus projetos não apenas funcionem perfeitamente, mas também sejam visualmente agradáveis e intuitivos.
                 </p>
-                <!-- Mini-Grid de Habilidades/Interesses (Mantido aqui, mas a seção #habilidades é mais detalhada) -->
+                <!-- Mini-Grid de Habilidades/Interesses -->
                 <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                     <div class="p-4 bg-slate-700 rounded-lg shadow-md transition transform hover:bg-blue-700">
                         <span class="font-semibold text-blue-400">Desenvolvimento de Sistemas</span>
@@ -200,7 +224,59 @@
             </div>
         </section>
         
-        <!-- Seção 3: Habilidades e Ferramentas -->
+        <!-- Seção 3: Linha do Tempo (Jornada & Educação) - NOVO! -->
+        <section id="timeline" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
+            <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Jornada & Educação</h2>
+            
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Linha Vertical -->
+                <div class="absolute w-0.5 bg-blue-500 left-2 md:left-1/2 transform -translate-x-1/2 h-full"></div>
+                
+                <!-- Item 1: Educação SENAI -->
+                <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-full md:w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-blue-500 shadow-xl w-4 h-4 rounded-full"></div>
+                    <div class="order-1 bg-slate-700 rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 glow-shadow">
+                        <p class="mb-1 text-xs text-blue-400 font-bold">2020 - 2022</p>
+                        <h3 class="mb-3 font-bold text-lg text-white">Técnico em Desenvolvimento de Sistemas</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-300">
+                            Formação técnica no SENAI, focada em lógica de programação, banco de dados e desenvolvimento back-end e front-end.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Foco em Ferramentas Windows -->
+                <div class="mb-8 flex justify-between items-center w-full left-timeline">
+                    <div class="order-1 w-full md:w-5/12 md:text-right md:pr-6">
+                        <div class="bg-slate-700 rounded-lg shadow-xl px-6 py-4 glow-shadow">
+                            <p class="mb-1 text-xs text-blue-400 font-bold">2023 - Presente</p>
+                            <h3 class="mb-3 font-bold text-lg text-white">Desenvolvedor de Software (Freelancer / Foco em Utilitários)</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-300">
+                                Criação de soluções práticas para o ecossistema Windows usando C# e Python. Foco em automação e overlays de sistema (Oveger, Translator Overlay).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="z-10 flex items-center order-1 bg-blue-500 shadow-xl w-4 h-4 rounded-full"></div>
+                    <div class="order-1 w-full md:w-5/12"></div>
+                </div>
+
+                <!-- Item 3: Desenvolvimento de Jogos (Inceptum) -->
+                <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                    <div class="order-1 w-full md:w-5/12"></div>
+                    <div class="z-10 flex items-center order-1 bg-blue-500 shadow-xl w-4 h-4 rounded-full"></div>
+                    <div class="order-1 bg-slate-700 rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 glow-shadow">
+                        <p class="mb-1 text-xs text-blue-400 font-bold">2024 - Em Andamento</p>
+                        <h3 class="mb-3 font-bold text-lg text-white">Início de Projeto Pessoal: Inceptum (Unity/C#)</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-300">
+                            Aprofundamento em desenvolvimento de jogos com foco em mecânicas complexas, networking, e controle de versão com Plastic SCM.
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- Seção 4: Habilidades e Ferramentas (Agora Seção 4) -->
         <section id="habilidades" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Habilidades & Ferramentas</h2>
             <p class="text-lg text-gray-300 mb-8">Tecnologias e ferramentas que domino no desenvolvimento de softwares e jogos.</p>
@@ -209,201 +285,177 @@
                 
                 <!-- Card Habilidade: Unity (Motor de Jogo) -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <svg class="skill-icon w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7l9 5 9-5-9-5z"/><path d="M3 17l9 5 9-5"/><path d="M3 7v10"/><path d="M21 7v10"/><path d="M12 12v5"/></svg>
+                    <svg class="skill-icon w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Unity Icon"><path d="M12 2L3 7l9 5 9-5-9-5z"/><path d="M3 17l9 5 9-5"/><path d="M3 7v10"/><path d="M21 7v10"/><path d="M12 12v5"/></svg>
                     <span class="mt-3 text-sm font-semibold">Unity</span>
                 </div>
 
                 <!-- Card Habilidade: C# -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-4xl font-extrabold text-[#7F00FF]">C#</span>
+                    <span class="skill-icon text-4xl font-extrabold text-[#7F00FF]" role="img" aria-label="C Sharp Icon">C#</span>
                     <span class="mt-3 text-sm font-semibold">C Sharp</span>
                 </div>
                 
                 <!-- Card Habilidade: C++ -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-4xl font-extrabold text-[#00599C]">C++</span>
+                    <span class="skill-icon text-4xl font-extrabold text-[#00599C]" role="img" aria-label="C Plus Plus Icon">C++</span>
                     <span class="mt-3 text-sm font-semibold">C Plus Plus</span>
                 </div>
                 
                 <!-- Card Habilidade: C -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-4xl font-extrabold text-[#555555]">C</span>
+                    <span class="skill-icon text-4xl font-extrabold text-[#555555]" role="img" aria-label="C Language Icon">C</span>
                     <span class="mt-3 text-sm font-semibold">Linguagem C</span>
                 </div>
 
                 <!-- Card Habilidade: PlasticSCM -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-4xl font-extrabold text-[#F00]">SCM</span>
+                    <span class="skill-icon text-4xl font-extrabold text-[#F00]" role="img" aria-label="Plastic SCM Icon">SCM</span>
                     <span class="mt-3 text-sm font-semibold">Plastic SCM</span>
                 </div>
                 
                 <!-- Card Habilidade: Android Studio -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
                     <!-- Icone Android -->
-                    <svg class="skill-icon w-10 h-10 text-[#A4C639]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 17.8l-1.6-1.6M8.2 17.8l1.6-1.6"/><path d="M12 21a2 2 0 0 1-2-2v-4a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2z"/><path d="M16 8a4 4 0 0 0-8 0"/></svg>
+                    <svg class="skill-icon w-10 h-10 text-[#A4C639]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Android Studio Icon"><path d="M17.8 17.8l-1.6-1.6M8.2 17.8l1.6-1.6"/><path d="M12 21a2 2 0 0 1-2-2v-4a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2z"/><path d="M16 8a4 4 0 0 0-8 0"/></svg>
                     <span class="mt-3 text-sm font-semibold">Android Studio</span>
                 </div>
 
                 <!-- Card Habilidade: Java -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                    <span class="skill-icon text-3xl font-extrabold text-[#F8981D]">Java</span>
+                    <span class="skill-icon text-3xl font-extrabold text-[#F8981D]" role="img" aria-label="Java Icon">Java</span>
                     <span class="mt-3 text-sm font-semibold">Java</span>
                 </div>
 
                 <!-- Card Habilidade: Visual Studio 2026 (assumindo o VS Code SVG para a IDE) -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
                     <!-- Ícone VS Code (Visual Studio geralmente usa o mesmo branding de logo) -->
-                    <svg class="skill-icon w-10 h-10 text-[#007ACC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 5.5v7L12 21 2 15.5v-7L12 3z"/><path d="M2 7.5L12 13M22 7.5L12 13M12 13V21"/></svg>
+                    <svg class="skill-icon w-10 h-10 text-[#007ACC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Visual Studio Icon"><path d="M12 3l10 5.5v7L12 21 2 15.5v-7L12 3z"/><path d="M2 7.5L12 13M22 7.5L12 13M12 13V21"/></svg>
                     <span class="mt-3 text-sm font-semibold">Visual Studio</span>
                 </div>
                 
                 <!-- Card Habilidade: VS Code -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
                     <!-- Ícone VS Code -->
-                    <svg class="skill-icon w-10 h-10 text-[#007ACC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 5.5v7L12 21 2 15.5v-7L12 3z"/><path d="M2 7.5L12 13M22 7.5L12 13M12 13V21"/></svg>
+                    <svg class="skill-icon w-10 h-10 text-[#007ACC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="VS Code Icon"><path d="M12 3l10 5.5v7L12 21 2 15.5v-7L12 3z"/><path d="M2 7.5L12 13M22 7.5L12 13M12 13V21"/></svg>
                     <span class="mt-3 text-sm font-semibold">VS Code</span>
                 </div>
 
                 <!-- Card Habilidade: Python -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
                     <!-- Icone Python (Cobra) -->
-                    <svg class="skill-icon w-10 h-10 text-[#306998]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 0-4 4v3a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"/><path d="M10 12h4"/><path d="M12 16v6"/><path d="M16 18h2"/><path d="M6 18h2"/></svg>
+                    <svg class="skill-icon w-10 h-10 text-[#306998]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Python Icon"><path d="M12 2a4 4 0 0 0-4 4v3a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"/><path d="M10 12h4"/><path d="M12 16v6"/><path d="M16 18h2"/><path d="M6 18h2"/></svg>
                     <span class="mt-3 text-sm font-semibold">Python</span>
                 </div>
                 
                 <!-- Card Habilidade: Git -->
                 <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
                     <!-- Icone Git (Fork) -->
-                    <svg class="skill-icon w-10 h-10 text-[#F14E32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><line x1="18" y1="9" x2="18" y2="21"/><line x1="6" y1="9" x2="6" y2="21"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
+                    <svg class="skill-icon w-10 h-10 text-[#F14E32]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Git Icon"><circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><line x1="18" y1="9" x2="18" y2="21"/><line x1="6" y1="9" x2="6" y2="21"/><line x1="12" y1="9" x2="12" y2="15"/></svg>
                     <span class="mt-3 text-sm font-semibold">Git</span>
                 </div>
                 
             </div>
         </section>
 
-        <!-- Seção 4: Projetos (anteriormente Seção 3) -->
+        <!-- Seção 5: Projetos (Agora Seção 5) -->
         <section id="projetos" class="p-8 sm:p-16 my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 text-center border-b-4 border-blue-500 pb-2 inline-block mx-auto text-glow">Meus Projetos</h2>
+            <p class="text-lg text-gray-300 text-center mb-8">Clique em qualquer projeto para ver detalhes, tecnologias e links.</p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Card Projeto 1: Downloader -->
-                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out">
+                <!-- Card Projeto 1: Downloader (AGORA ABRE MODAL) -->
+                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer" data-project="rule34downloader">
                     <div class="flex items-center space-x-3 mb-4">
-                        <!-- Icone: Download -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-blue-400"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         <h3 class="text-xl font-semibold">Rule34-Downloader-Desktop-App</h3>
                     </div>
                     <p class="text-gray-300 mb-4">
-                        Aplicativo de desktop eficiente para download e gerenciamento de mídia de fontes web específicas. Ferramenta robusta para coleção e organização de conteúdo digital.
+                        Aplicativo de desktop eficiente para download e gerenciamento de mídia de fontes web específicas.
                     </p>
-                    <a href="https://github.com/ChickChuck2/Rule34-Downloader-Desktop-App" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium flex items-center transition-colors duration-300">
-                        Ver no GitHub 
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-4l5 5m0 0v-5m0 5h-5"></path></svg>
-                    </a>
+                    <p class="text-blue-400 font-medium">Clique para mais detalhes</p>
                 </div>
 
-                <!-- Card Projeto 2: Translator -->
-                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out">
+                <!-- Card Projeto 2: Translator (AGORA ABRE MODAL) -->
+                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer" data-project="windowstranslator">
                     <div class="flex items-center space-x-3 mb-4">
-                        <!-- Icone: Texto -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-blue-400"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 22H20"/><line x1="12" y1="17" x2="12" y2="13"/><line x1="15" y1="10" x2="9" y2="10"/><line x1="12" y1="13" x2="12" y2="10"/></svg>
                         <h3 class="text-xl font-semibold">WindowsTranslatorOverlay</h3>
                     </div>
                     <p class="text-gray-300 mb-4">
-                        Overlay de tradução de texto para Windows. Permite a tradução instantânea de qualquer texto na tela, agilizando a leitura e compreensão de conteúdo.
+                        Overlay de tradução de texto para Windows. Tradução instantânea de qualquer texto na tela.
                     </p>
-                    <a href="https://github.com/ChickChuck2/WindowsTranslatorOverlay" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium flex items-center transition-colors duration-300">
-                        Ver no GitHub 
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-4l5 5m0 0v-5m0 5h-5"></path></svg>
-                    </a>
+                    <p class="text-blue-400 font-medium">Clique para mais detalhes</p>
                 </div>
 
-                <!-- Card Projeto 3: Senai Game -->
-                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out">
+                <!-- Card Projeto 3: Senai Game (AGORA ABRE MODAL) -->
+                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer" data-project="senaigame">
                     <div class="flex items-center space-x-3 mb-4">
-                        <!-- Icone: Jogo -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-blue-400"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><line x1="6" y1="12" x2="6" y2="12.01"/><line x1="18" y1="12" x2="18" y2="12.01"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
                         <h3 class="text-xl font-semibold">Construct-Senai-Game</h3>
                     </div>
                     <p class="text-gray-300 mb-4">
-                        Jogo simples desenvolvido durante o curso do SENAI, servindo como demonstração inicial de lógica e mecânicas básicas de desenvolvimento de jogos.
+                        Jogo simples desenvolvido durante o curso do SENAI, demonstração de lógica e mecânicas básicas.
                     </p>
-                    <a href="https://chickchuck2.github.io/Construct-Senai-Game/" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium flex items-center transition-colors duration-300">
-                        Acessar Jogo (Demo)
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-4l5 5m0 0v-5m0 5h-5"></path></svg>
-                    </a>
+                    <p class="text-blue-400 font-medium">Clique para mais detalhes</p>
                 </div>
                 
-                <!-- Card Projeto 4: Oveger -->
-                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out">
+                <!-- Card Projeto 4: Oveger (AGORA ABRE MODAL) -->
+                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer" data-project="oveger">
                     <div class="flex items-center space-x-3 mb-4">
-                        <!-- Icone: Atalhos/Overlay -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-blue-400"><path d="M5 3v4M3 5h4M19 3v4M21 5h-4M5 21v-4M3 19h4M21 19h-4M19 21v-4"/><path d="M12 12h.01"/></svg>
                         <h3 class="text-xl font-semibold">Oveger</h3>
                     </div>
                     <p class="text-gray-300 mb-4">
-                        Um overlay minimalista e personalizável para atalhos de aplicativos e arquivos, projetado para otimizar a navegação e o acesso rápido no desktop.
+                        Um overlay minimalista e personalizável para atalhos de aplicativos e arquivos no desktop.
                     </p>
-                    <a href="https://github.com/ChickChuck2/Oveger" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium flex items-center transition-colors duration-300">
-                        Ver no GitHub 
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-4l5 5m0 0v-5m0 5h-5"></path></svg>
-                    </a>
+                    <p class="text-blue-400 font-medium">Clique para mais detalhes</p>
                 </div>
 
-                <!-- Card Projeto 5: TheXBESTHost -->
-                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out">
+                <!-- Card Projeto 5: TheXBESTHost (AGORA ABRE MODAL) -->
+                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer" data-project="thexbesthost">
                     <div class="flex items-center space-x-3 mb-4">
-                        <!-- Icone: Servidor -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-blue-400"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6" y2="6"/><line x1="6" y1="18" x2="6" y2="18"/></svg>
                         <h3 class="text-xl font-semibold">TheXBESTHost</h3>
                     </div>
                     <p class="text-gray-300 mb-4">
-                        Projeto de localhost com funções adicionais, permitindo controlar e gerenciar recursos de forma remota, ideal para automação e testes de rede.
+                        Projeto de localhost com funções adicionais, permitindo controlar e gerenciar recursos de forma remota.
                     </p>
-                    <a href="https://github.com/ChickChuck2/TheXBESTHost" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium flex items-center transition-colors duration-300">
-                        Ver no GitHub 
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-4l5 5m0 0v-5m0 5h-5"></path></svg>
-                    </a>
+                    <p class="text-blue-400 font-medium">Clique para mais detalhes</p>
                 </div>
 
-                <!-- Card Projeto 6: Mydroid -->
-                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out">
+                <!-- Card Projeto 6: Mydroid (AGORA ABRE MODAL) -->
+                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow transform hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer" data-project="mydroid">
                     <div class="flex items-center space-x-3 mb-4">
-                        <!-- Icone: Bot -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-blue-400"><path d="M12 2a4 4 0 0 0-4 4v3a4 4 0 0 0 8 0V6a4 4 0 0 0-4-4z"/><path d="M10 12h4"/><path d="M12 16v6"/><path d="M16 18h2"/><path d="M6 18h2"/></svg>
                         <h3 class="text-xl font-semibold">Mydroid (Bot do Discord)</h3>
                     </div>
                     <p class="text-gray-300 mb-4">
-                        Meu bot personalizado para a plataforma Discord, oferecendo uma variedade de comandos e automações para melhorar a interação e a gestão de comunidades.
+                        Meu bot personalizado para a plataforma Discord, oferecendo comandos e automações para gestão de comunidades.
                     </p>
-                    <a href="https://chickchuck2.github.io/Mydroid/" target="_blank" class="text-blue-400 hover:text-blue-300 font-medium flex items-center transition-colors duration-300">
-                        Acessar Página (Demo)
-                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-4l5 5m0 0v-5m0 5h-5"></path></svg>
-                    </a>
+                    <p class="text-blue-400 font-medium">Clique para mais detalhes</p>
                 </div>
 
-                <!-- Card Projeto 7: Inceptum - EM ANDAMENTO -->
-                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow border-2 border-blue-500 transform hover:scale-[1.02] transition duration-300 ease-in-out">
+                <!-- Card Projeto 7: Inceptum - EM ANDAMENTO (AGORA ABRE MODAL) -->
+                <div class="project-card bg-slate-800 p-6 rounded-xl glow-shadow border-2 border-blue-500 transform hover:scale-[1.02] transition duration-300 ease-in-out cursor-pointer" data-project="inceptum">
                     <div class="flex items-center space-x-3 mb-4">
-                        <!-- Icone: Desenvolvimento/Jogo -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-yellow-400"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M15 2H9a1 1 0 0 0-1 1v2h8V3a1 1 0 0 0-1-1z"/><path d="M8 12h8"/><path d="M8 16h8"/></svg>
                         <h3 class="text-xl font-semibold text-yellow-400">Inceptum</h3>
                     </div>
                     <p class="text-gray-300 mb-4">
-                        **Jogo de sobrevivência 2D realista Multiplayer.** Este projeto está em desenvolvimento ativo, focado em mecânicas complexas de sobrevivência, crafting detalhado e interação multijogador.
+                        **Jogo de sobrevivência 2D realista Multiplayer.** Projeto em desenvolvimento ativo.
                     </p>
                     <p class="text-yellow-400 font-bold flex items-center transition-colors duration-300">
-                        <!-- Ponto pulsante -->
                         <span class="w-2 h-2 mr-2 bg-yellow-400 rounded-full animate-pulse-custom"></span>
                         Status: Desenvolvimento Ativo
                     </p>
+                    <p class="text-blue-400 font-medium mt-2">Clique para mais detalhes</p>
                 </div>
 
             </div>
         </section>
         
-        <!-- Seção 5: Contato e Redes Sociais -->
+        <!-- Seção 6: Contato e Redes Sociais (Agora Seção 6) -->
         <section id="contato" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Contato & Redes</h2>
             <p class="text-lg text-gray-300 mb-10">Conecte-se comigo e acompanhe meus projetos nas redes:</p>
@@ -411,7 +463,8 @@
             <div class="flex flex-wrap justify-center gap-8">
                 <!-- Link LinkedIn -->
                 <a href="https://www.linkedin.com/in/carlos-peres-da-silva-338849205/" target="_blank" 
-                   class="flex items-center space-x-4 p-4 bg-blue-700/50 rounded-lg glow-shadow transform hover:scale-105 transition duration-300 ease-in-out">
+                   class="flex items-center space-x-4 p-4 bg-blue-700/50 rounded-lg glow-shadow transform hover:scale-105 transition duration-300 ease-in-out"
+                   aria-label="Perfil do LinkedIn">
                     <!-- LinkedIn Icon SVG -->
                     <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
@@ -423,7 +476,8 @@
 
                 <!-- Link Instagram (Inceptum Game) -->
                 <a href="https://www.instagram.com/inceptumthegame/" target="_blank" 
-                   class="flex items-center space-x-4 p-4 bg-pink-700/50 rounded-lg glow-shadow transform hover:scale-105 transition duration-300 ease-in-out">
+                   class="flex items-center space-x-4 p-4 bg-pink-700/50 rounded-lg glow-shadow transform hover:scale-105 transition duration-300 ease-in-out"
+                   aria-label="Instagram do projeto Inceptum">
                     <!-- Instagram Icon SVG -->
                     <svg class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -442,7 +496,7 @@
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400">
             <p>&copy; 2025 ChickChuck2. Todos os direitos reservados.</p>
             <div class="flex space-x-4 mt-4 md:mt-0">
-                <a href="https://github.com/ChickChuck2" target="_blank" class="hover:text-blue-400 transition-colors duration-300">
+                <a href="https://github.com/ChickChuck2" target="_blank" class="hover:text-blue-400 transition-colors duration-300" aria-label="Github Profile">
                     <!-- Icone GitHub SVG -->
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 3s-1.37-.4-4.5.97A18.88 18.88 0 0 0 12 5.88a18.88 18.88 0 0 0-3.41-.33c-3.13-1.37-4.5-.97-4.5-.97A5.07 5.07 0 0 0 3 4.77a5.44 5.44 0 0 0 1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
                 </a>
@@ -450,8 +504,166 @@
         </div>
     </footer>
 
+
+    <!-- ESTRUTURA DO MODAL DE DETALHES DE PROJETO -->
+    <div id="project-modal" class="fixed inset-0 z-[100] bg-slate-900/95 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div id="modal-content-wrapper" class="bg-slate-800 rounded-xl glow-shadow p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="flex justify-between items-start mb-6 border-b border-slate-700 pb-4">
+                <h3 id="modal-title" class="text-3xl font-bold text-blue-400 text-glow">Título do Projeto</h3>
+                <button id="close-modal-btn" aria-label="Fechar Modal" class="text-gray-400 hover:text-white transition-colors duration-200">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <div id="modal-body" class="space-y-6">
+                <!-- Conteúdo dinâmico -->
+                <p id="modal-long-description" class="text-gray-300 text-lg"></p>
+
+                <h4 class="text-xl font-semibold text-white mt-6 border-b border-slate-700 pb-2">Tecnologias Chave</h4>
+                <div id="modal-tech-list" class="flex flex-wrap gap-3">
+                    <!-- Tags de tecnologia -->
+                </div>
+            </div>
+            
+            <div id="modal-links" class="mt-8 flex flex-wrap gap-4 pt-4 border-t border-slate-700">
+                <!-- Botões de Ação (GitHub/Demo) -->
+            </div>
+        </div>
+    </div>
+
     <script>
         // JavaScript para o menu mobile e animações de scroll
+
+        // Dados detalhados dos projetos para o Modal
+        const projectData = {
+            rule34downloader: {
+                title: 'Rule34-Downloader-Desktop-App',
+                description: 'Este é um aplicativo de desktop robusto projetado para baixar, organizar e gerenciar coleções de mídia digital de fontes web específicas de maneira eficiente. Ele oferece recursos avançados de filtragem, controle de downloads e organização de pastas.',
+                techs: ['Python', 'C#', 'Windows API', 'SQL Lite'],
+                links: [
+                    { name: 'Repositório GitHub', url: 'https://github.com/ChickChuck2/Rule34-Downloader-Desktop-App', icon: 'github' }
+                ]
+            },
+            windowstranslator: {
+                title: 'WindowsTranslatorOverlay',
+                description: 'Um utilitário essencial para Windows que fornece uma camada de tradução em tempo real. Ele detecta e traduz o texto exibido na tela, sendo ideal para jogos, softwares estrangeiros ou artigos online, sem a necessidade de alternar janelas.',
+                techs: ['C++', 'Windows Forms', 'OCR (Optical Character Recognition)'],
+                links: [
+                    { name: 'Repositório GitHub', url: 'https://github.com/ChickChuck2/WindowsTranslatorOverlay', icon: 'github' }
+                ]
+            },
+            senaigame: {
+                title: 'Construct-Senai-Game',
+                description: 'Um projeto prático desenvolvido como parte da formação no SENAI. O jogo serviu para aplicar conceitos de lógica de programação, design de níveis e física básica, utilizando a ferramenta Construct.',
+                techs: ['Construct', 'HTML5', 'JavaScript (Lógica)'],
+                links: [
+                    { name: 'Ver Demo (GitHub Pages)', url: 'https://chickchuck2.github.io/Construct-Senai-Game/', icon: 'external' },
+                    { name: 'Repositório GitHub', url: 'https://github.com/ChickChuck2/Construct-Senai-Game/', icon: 'github' }
+                ]
+            },
+            oveger: {
+                title: 'Oveger',
+                description: 'Oveger é um overlay de produtividade que permite a criação de atalhos flutuantes para aplicativos e arquivos. Ele otimiza o fluxo de trabalho no desktop, oferecendo acesso rápido e personalizável aos seus recursos mais usados.',
+                techs: ['C#', 'Windows Presentation Foundation (WPF)', 'Configuração de Sistema'],
+                links: [
+                    { name: 'Repositório GitHub', url: 'https://github.com/ChickChuck2/Oveger', icon: 'github' }
+                ]
+            },
+            thexbesthost: {
+                title: 'TheXBESTHost',
+                description: 'Um projeto que implementa um servidor localhost com funcionalidades de controle remoto. Permite o gerenciamento de recursos, automações e monitoramento de rede, sendo útil para ambientes de teste e controle centralizado.',
+                techs: ['Python', 'Networking', 'Comunicação HTTP/TCP'],
+                links: [
+                    { name: 'Repositório GitHub', url: 'https://github.com/ChickChuck2/TheXBESTHost', icon: 'github' }
+                ]
+            },
+            mydroid: {
+                title: 'Mydroid (Bot do Discord)',
+                description: 'Bot de Discord multifuncional, desenvolvido para gerenciar comunidades, automatizar tarefas de moderação e oferecer comandos de utilidade e entretenimento. Demonstra competência em integração de APIs e programação assíncrona.',
+                techs: ['Python', 'Discord API', 'Database Integration'],
+                links: [
+                    { name: 'Ver Página (Demo)', url: 'https://chickchuck2.github.io/Mydroid/', icon: 'external' },
+                    { name: 'Repositório GitHub', url: 'https://github.com/ChickChuck2/Mydroid/', icon: 'github' }
+                ]
+            },
+            inceptum: {
+                title: 'Inceptum',
+                description: 'Projeto de jogo de sobrevivência 2D realista e multiplayer, atualmente em desenvolvimento ativo. O foco está na profundidade das mecânicas (crafting, física e economia) e na implementação de networking robusto. Desenvolvido em Unity.',
+                techs: ['Unity', 'C#', 'Multiplayer Networking', 'Plastic SCM'],
+                links: [
+                    { name: 'Instagram do Jogo', url: 'https://www.instagram.com/inceptumthegame/', icon: 'instagram' }
+                ]
+            }
+        };
+
+        const modal = document.getElementById('project-modal');
+        const modalContentWrapper = document.getElementById('modal-content-wrapper');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDescription = document.getElementById('modal-long-description');
+        const modalTechList = document.getElementById('modal-tech-list');
+        const modalLinks = document.getElementById('modal-links');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        // Helper function for link icons
+        function getLinkIcon(iconName) {
+            const icons = {
+                github: '<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 3s-1.37-.4-4.5.97A18.88 18.88 0 0 0 12 5.88a18.88 18.88 0 0 0-3.41-.33c-3.13-1.37-4.5-.97-4.5-.97A5.07 5.07 0 0 0 3 4.77a5.44 5.44 0 0 0 1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>',
+                external: '<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-4l5 5m0 0v-5m0 5h-5"></path></svg>',
+                instagram: '<svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>'
+            };
+            return icons[iconName] || '';
+        }
+
+        // Função para abrir o modal
+        function openModal(projectKey) {
+            const data = projectData[projectKey];
+            if (!data) return;
+
+            // 1. Preencher conteúdo
+            modalTitle.textContent = data.title;
+            modalDescription.textContent = data.description;
+            
+            // 2. Preencher tecnologias
+            modalTechList.innerHTML = '';
+            data.techs.forEach(tech => {
+                const tag = `<span class="px-3 py-1 bg-blue-600/70 text-white text-sm rounded-full glow-shadow">${tech}</span>`;
+                modalTechList.innerHTML += tag;
+            });
+
+            // 3. Preencher links
+            modalLinks.innerHTML = '';
+            data.links.forEach(link => {
+                const linkHtml = `
+                    <a href="${link.url}" target="_blank" class="flex items-center px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg glow-shadow hover:bg-blue-600 transition duration-300 transform hover:scale-[1.05]">
+                        ${getLinkIcon(link.icon)}
+                        ${link.name}
+                    </a>
+                `;
+                modalLinks.innerHTML += linkHtml;
+            });
+            
+            // 4. Mostrar o modal com animação
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // Timeout para aplicar a transição (transform/opacity)
+            setTimeout(() => {
+                modalContentWrapper.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+            
+            document.body.style.overflow = 'hidden'; // Evita scroll do fundo
+        }
+
+        // Função para fechar o modal
+        function closeModal() {
+            modalContentWrapper.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }, 300); // Duração da transição CSS
+        }
+
 
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -479,14 +691,14 @@
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.1 // Começa a animar quando 10% do elemento está visível
+                threshold: 0.1 
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('animate-loaded');
-                        observer.unobserve(entry.target); // Não precisa mais observar
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
@@ -497,10 +709,27 @@
 
             // Garante que a seção inicial apareça imediatamente
             document.getElementById('home').classList.add('animate-loaded');
+
+            // 4. Modal Event Listeners
+            projectCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const projectKey = card.getAttribute('data-project');
+                    openModal(projectKey);
+                });
+            });
+            
+            closeModalBtn.addEventListener('click', closeModal);
+
+            // Fechar modal ao clicar no backdrop (fora do conteúdo)
+            modal.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
         });
 
 
-        // 4. Efeito de Partículas no Fundo
+        // 5. Efeito de Partículas no Fundo
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
