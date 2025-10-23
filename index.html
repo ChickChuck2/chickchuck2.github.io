@@ -39,6 +39,15 @@
                 margin-bottom: 2rem;
             }
         }
+
+        /* Animação de Pulsar para indicar "Em Andamento" */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .animate-pulse-custom {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -224,6 +233,23 @@
                         Acessar Página (Demo)
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-4l5 5m0 0v-5m0 5h-5"></path></svg>
                     </a>
+                </div>
+
+                <!-- Card Projeto 7: Inceptum - EM ANDAMENTO -->
+                <div class="project-card bg-slate-800 p-6 rounded-xl shadow-xl border-2 border-blue-500 transform hover:scale-[1.02] transition duration-300 ease-in-out">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <!-- Icone: Desenvolvimento/Jogo -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-yellow-400"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M15 2H9a1 1 0 0 0-1 1v2h8V3a1 1 0 0 0-1-1z"/><path d="M8 12h8"/><path d="M8 16h8"/></svg>
+                        <h3 class="text-xl font-semibold text-yellow-400">Inceptum</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        **Jogo de sobrevivência 2D realista Multiplayer.** Este projeto está em desenvolvimento ativo, focado em mecânicas complexas de sobrevivência, crafting detalhado e interação multijogador.
+                    </p>
+                    <p class="text-yellow-400 font-bold flex items-center transition-colors duration-300">
+                        <!-- Ponto pulsante -->
+                        <span class="w-2 h-2 mr-2 bg-yellow-400 rounded-full animate-pulse-custom"></span>
+                        Status: Desenvolvimento Ativo
+                    </p>
                 </div>
 
             </div>
