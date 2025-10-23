@@ -141,6 +141,11 @@
             display: inline-block;
             color: var(--color-accent);
         }
+
+        /* Botão Flutuante (Back to Top) */
+        #back-to-top {
+            transition: opacity 0.3s, transform 0.3s;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -171,6 +176,7 @@
                 <a href="#sobre" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Sobre Mim</a>
                 <a href="#timeline" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Jornada</a>
                 <a href="#habilidades" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Habilidades</a>
+                <a href="#stats" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Estatísticas</a>
                 <a href="#otimizacao" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Otimização</a>
                 <a href="#projetos" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Projetos</a>
                 <a href="#contato" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Contato</a>
@@ -202,8 +208,13 @@
             </a>
             <a href="#habilidades" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Tools -->
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
                 <span class="font-medium">Habilidades</span>
+            </a>
+            <a href="#stats" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
+                <!-- Icone Grafico -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m13-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <span class="font-medium">Estatísticas</span>
             </a>
             <a href="#otimizacao" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Raio (Performance) -->
@@ -424,7 +435,40 @@
             </div>
         </section>
         
-        <!-- Seção 5: Otimização e Performance (NOVA SEÇÃO) -->
+        <!-- Seção 5: Estatísticas e Impacto (NOVA SEÇÃO) -->
+        <section id="stats" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
+            <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Estatísticas & Impacto</h2>
+            <p class="text-lg text-gray-300 text-center mb-10">Os números que refletem a dedicação e o alcance do meu trabalho.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <!-- Stat 1: Linhas de Código (Simulado) -->
+                <div class="p-6 bg-slate-700 rounded-xl glow-shadow">
+                    <div class="text-5xl font-extrabold text-blue-400 mb-2">
+                        <span id="stat-lines" data-target="15000">0</span>+
+                    </div>
+                    <p class="text-gray-300 font-semibold">Linhas de Código Escritas (C# / Python)</p>
+                </div>
+
+                <!-- Stat 2: Horas em Projetos (Simulado) -->
+                <div class="p-6 bg-slate-700 rounded-xl glow-shadow">
+                    <div class="text-5xl font-extrabold text-blue-400 mb-2">
+                        <span id="stat-hours" data-target="1500">0</span>+
+                    </div>
+                    <p class="text-gray-300 font-semibold">Horas de Desenvolvimento em Unity</p>
+                </div>
+
+                <!-- Stat 3: Projetos Publicados/Concluídos -->
+                <div class="p-6 bg-slate-700 rounded-xl glow-shadow">
+                    <div class="text-5xl font-extrabold text-blue-400 mb-2">
+                        <span id="stat-projects" data-target="6">0</span>+
+                    </div>
+                    <p class="text-gray-300 font-semibold">Projetos de Código Aberto no GitHub</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Seção 6: Otimização e Performance -->
         <section id="otimizacao" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-8 border-b-4 border-blue-500 pb-2 inline-block text-glow">Otimização & Performance</h2>
             <div class="text-lg space-y-6">
@@ -444,7 +488,7 @@
         </section>
 
 
-        <!-- Seção 6: Projetos -->
+        <!-- Seção 7: Projetos -->
         <section id="projetos" class="p-8 sm:p-16 my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 text-center border-b-4 border-blue-500 pb-2 inline-block mx-auto text-glow">Meus Projetos</h2>
             <p class="text-lg text-gray-300 text-center mb-8">Clique em qualquer projeto para ver detalhes, tecnologias e links.</p>
@@ -542,7 +586,7 @@
             </div>
         </section>
         
-        <!-- Seção 7: Contato e Redes Sociais -->
+        <!-- Seção 8: Contato e Redes Sociais -->
         <section id="contato" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Contato & Redes</h2>
             <p class="text-lg text-gray-300 mb-10">Conecte-se comigo e acompanhe meus projetos nas redes:</p>
@@ -577,6 +621,11 @@
         </section>
 
     </main>
+
+    <!-- Botão Voltar ao Topo (Back to Top Button) -->
+    <a id="back-to-top" href="#home" class="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg glow-shadow opacity-0 transform translate-y-4 hover:bg-blue-700 transition duration-300 ease-in-out z-40" aria-label="Voltar ao Topo">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </a>
 
     <!-- Rodapé -->
     <footer class="bg-gray-900 mt-20 p-8 border-t border-slate-700 md:ml-64">
@@ -619,7 +668,7 @@
     </div>
 
     <script>
-        // JavaScript para o menu mobile e animações de scroll
+        // JavaScript para o menu mobile, animações de scroll, Back to Top e Contador de Estatísticas
 
         // Dados detalhados dos projetos para o Modal
         const projectData = {
@@ -691,6 +740,7 @@
         const modalLinks = document.getElementById('modal-links');
         const closeModalBtn = document.getElementById('close-modal-btn');
         const projectCards = document.querySelectorAll('.project-card');
+        const backToTopBtn = document.getElementById('back-to-top');
 
         // Helper function for link icons
         function getLinkIcon(iconName) {
@@ -797,6 +847,40 @@
         }
         // --- FIM EFEITO DE DIGITAÇÃO ---
 
+        // --- CONTADOR DE ESTATÍSTICAS ---
+        function animateCounter(element, target) {
+            const duration = 2000; // 2 segundos
+            const stepTime = 10;
+            const steps = duration / stepTime;
+            const stepValue = target / steps;
+            let current = 0;
+
+            function updateCount() {
+                current += stepValue;
+                if (current < target) {
+                    element.textContent = Math.ceil(current).toLocaleString('pt-BR');
+                    setTimeout(updateCount, stepTime);
+                } else {
+                    element.textContent = target.toLocaleString('pt-BR');
+                }
+            }
+            updateCount();
+        }
+
+        // Observer para iniciar o contador quando a seção entrar na tela
+        const statsSection = document.getElementById('stats');
+        const statsObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('#stats [data-target]').forEach(stat => {
+                        animateCounter(stat, parseInt(stat.dataset.target));
+                    });
+                    observer.unobserve(statsSection); // Para de observar após a animação
+                }
+            });
+        }, { threshold: 0.5 });
+        // --- FIM CONTADOR DE ESTATÍSTICAS ---
+
 
         document.addEventListener('DOMContentLoaded', () => {
             // Inicia o efeito de digitação
@@ -846,6 +930,10 @@
             // Garante que a seção inicial apareça imediatamente
             document.getElementById('home').classList.add('animate-loaded');
 
+            // Inicia a observação da seção de estatísticas
+            statsObserver.observe(statsSection);
+
+
             // 4. Modal Event Listeners
             projectCards.forEach(card => {
                 card.addEventListener('click', () => {
@@ -862,10 +950,21 @@
                     closeModal();
                 }
             });
+
+            // 5. Back to Top Logic
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) { // Mostra após rolar 400px
+                    backToTopBtn.classList.remove('opacity-0', 'translate-y-4');
+                    backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+                } else {
+                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+                    backToTopBtn.classList.add('opacity-0', 'translate-y-4');
+                }
+            });
         });
 
 
-        // 5. Efeito de Partículas no Fundo
+        // 6. Efeito de Partículas no Fundo
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
