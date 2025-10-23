@@ -149,11 +149,12 @@
             transition: opacity 0.3s, transform 0.3s;
         }
 
-        /* CLASSES PARA BLUR NO SCROLL (ADICIONADO) */
+        /* CLASSES PARA BLUR NO SCROLL (CORREÇÃO DE BUG) */
         .scrolled-header {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            background-color: #0F172A/95; /* Fundo semi-transparente */
-            backdrop-filter: blur(4px); /* Blur */
+            /* Usando RGBA em vez da sintaxe do Tailwind /95 para melhor compatibilidade */
+            background-color: rgba(15, 23, 42, 0.95); 
+            backdrop-filter: blur(4px); 
         }
 
         /* CLI Console Styles */
@@ -1018,6 +1019,9 @@
 
             // 5. Back to Top Logic
             window.addEventListener('scroll', () => {
+                const header = document.getElementById('mobile-header');
+                const sidebar = document.getElementById('sidebar');
+
                 if (window.scrollY > 400) { // Mostra após rolar 400px
                     backToTopBtn.classList.remove('opacity-0', 'translate-y-4');
                     backToTopBtn.classList.add('opacity-100', 'translate-y-0');
@@ -1027,25 +1031,25 @@
                 }
                 
                 // 6. Efeito de Blur na barra de navegação ao rolar (Desktop e Mobile)
-                const header = document.getElementById('mobile-header');
-                const sidebar = document.getElementById('sidebar');
-
                 if (window.scrollY > 50) {
                     // Mobile Header: Adiciona blur e shadow
-                    header.classList.add('scrolled-header', 'shadow-xl', 'backdrop-blur-sm', 'bg-[#0F172A]/90');
+                    header.classList.add('scrolled-header');
                     header.classList.remove('bg-[#0F172A]');
                     
                     // Sidebar Desktop: Adiciona shadow
                     sidebar.classList.add('scrolled-header');
                 } else {
                     // Mobile Header: Remove blur e shadow
-                    header.classList.remove('scrolled-header', 'shadow-xl', 'backdrop-blur-sm', 'bg-[#0F172A]/90');
+                    header.classList.remove('scrolled-header');
                     header.classList.add('bg-[#0F172A]');
 
                     // Sidebar Desktop: Remove shadow
                     sidebar.classList.remove('scrolled-header');
                 }
             });
+
+            // Inicia a observação do radar chart
+            radarObserver.observe(habilidadesSection);
         });
 
 
@@ -1243,6 +1247,12 @@ Detalhes na seção #sobre.`,
 
         // --- NOVO: Lógica do Radar Chart (D3.js) ---
         function renderRadarChart() {
+            // Verifica se a D3.js está carregada antes de tentar desenhar
+            if (typeof d3 === 'undefined' || d3.select("#radar-chart").empty()) {
+                console.error("D3.js ou o container do radar chart não foi encontrado. Tentando novamente.");
+                return;
+            }
+
             // Dados simulados de proficiência (valor de 0.0 a 1.0)
             const data = [
                 { skill: 'C#', value: 0.90 },
@@ -1266,6 +1276,9 @@ Detalhes na seção #sobre.`,
             const rScale = d3.scaleLinear()
                 .range([0, radius])
                 .domain([0, 1]); // Proficiência de 0 a 1 (0% a 100%)
+
+            // Limpa o SVG antes de desenhar (evita duplicatas ao rolar para fora e voltar)
+            d3.select("#radar-chart").selectAll("*").remove();
 
             // Seleção e transformação do SVG
             const svg = d3.select("#radar-chart")
@@ -1461,6 +1474,9 @@ Detalhes na seção #sobre.`,
 
             // 5. Back to Top Logic
             window.addEventListener('scroll', () => {
+                const header = document.getElementById('mobile-header');
+                const sidebar = document.getElementById('sidebar');
+
                 if (window.scrollY > 400) { // Mostra após rolar 400px
                     backToTopBtn.classList.remove('opacity-0', 'translate-y-4');
                     backToTopBtn.classList.add('opacity-100', 'translate-y-0');
@@ -1470,22 +1486,19 @@ Detalhes na seção #sobre.`,
                 }
                 
                 // 6. Efeito de Blur na barra de navegação ao rolar (Desktop e Mobile)
-                const header = document.getElementById('mobile-header');
-                const sidebar = document.getElementById('sidebar');
-
                 if (window.scrollY > 50) {
-                    // Mobile Header: Adiciona blur e shadow
-                    header.classList.add('scrolled-header', 'shadow-xl', 'backdrop-blur-sm', 'bg-[#0F172A]/90');
+                    // Mobile Header: Adiciona a classe que tem o blur/sombra
+                    header.classList.add('scrolled-header');
                     header.classList.remove('bg-[#0F172A]');
                     
-                    // Sidebar Desktop: Adiciona shadow
+                    // Sidebar Desktop: Adiciona a classe que tem o blur/sombra
                     sidebar.classList.add('scrolled-header');
                 } else {
-                    // Mobile Header: Remove blur e shadow
-                    header.classList.remove('scrolled-header', 'shadow-xl', 'backdrop-blur-sm', 'bg-[#0F172A]/90');
+                    // Mobile Header: Remove a classe
+                    header.classList.remove('scrolled-header');
                     header.classList.add('bg-[#0F172A]');
 
-                    // Sidebar Desktop: Remove shadow
+                    // Sidebar Desktop: Remove a classe
                     sidebar.classList.remove('scrolled-header');
                 }
             });
