@@ -22,6 +22,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Carrega D3.js para visualização de dados (Radar Chart) -->
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- Carrega Three.js para o objeto 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <!-- Configuração do Tema e Fonte Inter -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
@@ -156,48 +158,25 @@
             background-color: rgba(15, 23, 42, 0.95); 
             backdrop-filter: blur(4px); 
         }
+        
+        /* Three.js Canvas Container */
+        #three-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            max-width: 400px; /* Limite de tamanho */
+            max-height: 400px;
+            z-index: 10;
+        }
 
-        /* CLI Console Styles */
-        #cli-container {
-            bottom: 20px;
-            right: 20px;
-            z-index: 60; /* Above back-to-top button */
-            transition: all 0.3s ease-in-out;
-        }
-        #cli-window {
-            width: 350px;
-            height: 400px;
-            background-color: rgba(15, 23, 42, 0.95); /* slate-900 semi-transparent */
-            border: 1px solid var(--color-primary);
-            box-shadow: 0 0 25px rgba(59, 130, 246, 0.5);
-            display: flex;
-            flex-direction: column;
-        }
-        #cli-output {
-            flex-grow: 1;
-            overflow-y: auto;
-            font-size: 0.85rem;
-            padding: 10px;
-            white-space: pre-wrap;
-            word-break: break-all;
-            font-family: monospace;
-            color: #0F0; /* Green text for console feel */
-            scrollbar-color: #3B82F6 #0F172A;
-            scrollbar-width: thin;
-        }
-        #cli-input-container {
-            padding: 8px 10px;
-            border-top: 1px solid var(--color-primary);
-            display: flex;
-        }
-        #cli-input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #F1F5F9;
-            flex-grow: 1;
-            font-family: monospace;
-            font-size: 0.85rem;
+        @media (max-width: 768px) {
+            #three-container {
+                /* Ocultar ou diminuir drasticamente em mobile para performance */
+                display: none; 
+            }
         }
     </style>
 </head>
@@ -261,7 +240,7 @@
             </a>
             <a href="#habilidades" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Tools -->
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5l4 4v5m-8 0h.01M3 7h5m-2 2h5m-2 4h5m-8-2h.01M3 11h5m-2 4h5m-2 4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5m-2-4h5m-2-2h5M20 7L10 17l-5-5"></path></svg>
                 <span class="font-medium">Habilidades</span>
             </a>
             <a href="#stats" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
@@ -290,8 +269,11 @@
     <main class="max-w-7xl mx-auto p-4 md:ml-64 md:mr-auto">
         
         <!-- Seção 1: Início/Hero -->
-        <section id="home" class="min-h-[calc(100vh-64px)] flex items-center justify-center p-8 text-center fade-in-up">
-            <div class="space-y-6 max-w-4xl">
+        <section id="home" class="min-h-[calc(100vh-64px)] flex items-center justify-center p-8 text-center fade-in-up relative">
+             <!-- Three.js Container (Objeto 3D) -->
+            <div id="three-container" class="hidden sm:block"></div>
+
+            <div class="space-y-6 max-w-4xl z-20">
                 <h1 class="text-5xl sm:text-7xl font-extrabold leading-tight">
                     Olá, eu sou <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 text-glow">ChickChuck2</span>.
                 </h1>
@@ -665,29 +647,6 @@
 
     </main>
     
-    <!-- Console Interativo (CLI Simulation) -->
-    <div id="cli-container" class="fixed hidden md:block">
-        <button id="cli-toggle-btn" class="absolute -top-12 right-0 p-3 bg-blue-600 rounded-t-lg text-white glow-shadow hover:bg-blue-700 transition duration-300" aria-label="Abrir Console">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3 3-3m-3 6h.01M16 19H6a2 2 0 01-2-2V7a2 2 0 012-2h14a2 2 0 012 2v10a2 2 0 01-2 2h-6.189l-1.92 1.92a.5.5 0 01-.707 0L14.189 19z"></path></svg>
-        </button>
-        <div id="cli-window" class="rounded-xl hidden">
-            <div id="cli-header" class="p-2 bg-blue-600 rounded-t-xl text-xs font-semibold flex justify-between items-center text-white">
-                <span>> ChickChuck2 Terminal V1.0</span>
-                <button id="cli-close-btn" class="text-white hover:text-gray-200 transition" aria-label="Fechar Console">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            <div id="cli-output">
-                Bem-vindo ao Terminal Interativo de ChickChuck2.<br>
-                Digite 'help' para comandos.
-            </div>
-            <div id="cli-input-container">
-                <span class="text-blue-400 font-bold mr-1">guest@portfolio:~$</span>
-                <input type="text" id="cli-input" autofocus>
-            </div>
-        </div>
-    </div>
-
     <!-- Botão Voltar ao Topo (Back to Top Button) -->
     <a id="back-to-top" href="#home" class="fixed bottom-4 right-4 bg-blue-600 text-white p-3 rounded-full shadow-lg glow-shadow opacity-0 transform translate-y-4 hover:bg-blue-700 transition duration-300 ease-in-out z-40" aria-label="Voltar ao Topo">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
@@ -948,312 +907,14 @@
         // --- FIM CONTADOR DE ESTATÍSTICAS ---
 
 
-        document.addEventListener('DOMContentLoaded', () => {
-            // Inicia o efeito de digitação
-            typeWriter();
-
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const navLinks = document.querySelectorAll('#mobile-menu a, #sidebar a');
-            const sections = document.querySelectorAll('.fade-in-up');
-
-            // 1. Funcionalidade do Menu Mobile
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // 2. Fechar menu mobile ao clicar em um link
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    // Se o link estiver dentro do menu mobile, feche-o
-                    if (!mobileMenu.classList.contains('hidden')) {
-                         mobileMenu.classList.add('hidden');
-                    }
-                });
-            });
-
-
-            // 3. Animação de Scroll (Fade-in-up)
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1 
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-loaded');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            // Garante que a seção inicial apareça imediatamente
-            document.getElementById('home').classList.add('animate-loaded');
-
-            // Inicia a observação da seção de estatísticas
-            statsObserver.observe(statsSection);
-
-
-            // 4. Modal Event Listeners
-            projectCards.forEach(card => {
-                card.addEventListener('click', () => {
-                    const projectKey = card.getAttribute('data-project');
-                    openModal(projectKey);
-                });
-            });
-            
-            closeModalBtn.addEventListener('click', closeModal);
-
-            // Fechar modal ao clicar no backdrop (fora do conteúdo)
-            modal.addEventListener('click', (event) => {
-                if (event.target === modal) {
-                    closeModal();
-                }
-            });
-
-            // 5. Back to Top Logic
-            window.addEventListener('scroll', () => {
-                const header = document.getElementById('mobile-header');
-                const sidebar = document.getElementById('sidebar');
-
-                if (window.scrollY > 400) { // Mostra após rolar 400px
-                    backToTopBtn.classList.remove('opacity-0', 'translate-y-4');
-                    backToTopBtn.classList.add('opacity-100', 'translate-y-0');
-                } else {
-                    backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
-                    backToTopBtn.classList.add('opacity-0', 'translate-y-4');
-                }
-                
-                // 6. Efeito de Blur na barra de navegação ao rolar (Desktop e Mobile)
-                if (window.scrollY > 50) {
-                    // Mobile Header: Adiciona blur e shadow
-                    header.classList.add('scrolled-header');
-                    header.classList.remove('bg-[#0F172A]');
-                    
-                    // Sidebar Desktop: Adiciona shadow
-                    sidebar.classList.add('scrolled-header');
-                } else {
-                    // Mobile Header: Remove blur e shadow
-                    header.classList.remove('scrolled-header');
-                    header.classList.add('bg-[#0F172A]');
-
-                    // Sidebar Desktop: Remove shadow
-                    sidebar.classList.remove('scrolled-header');
-                }
-            });
-
-            // Inicia a observação do radar chart
-            radarObserver.observe(habilidadesSection);
-        });
-
-
-        // 7. Efeito de Partículas no Fundo
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        const maxParticles = 50;
-
-        function setCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        class Particle {
-            constructor(x, y) {
-                // Posição inicial (aleatória ou fornecida)
-                this.x = x || Math.random() * canvas.width;
-                this.y = y || Math.random() * canvas.height;
-                this.radius = Math.random() * 1.5 + 0.5; // Tamanho do ponto
-                this.color = `rgba(96, 165, 250, ${Math.random() * 0.5 + 0.2})`; // Cor azul com transparência
-                
-                // Velocidade de movimento
-                this.velocity = {
-                    x: (Math.random() - 0.5) * 0.2,
-                    y: (Math.random() - 0.5) * 0.2
-                };
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-
-            update() {
-                this.x += this.velocity.x;
-                this.y += this.velocity.y;
-
-                // Faz as partículas reaparecerem do lado oposto ao sair da tela (efeito "wrap")
-                if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
-                
-                this.draw();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            for (let i = 0; i < maxParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            let opacityValue = 1;
-            // Cria linhas entre partículas próximas
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i; j < particles.length; j++) {
-                    const distance = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
-
-                    if (distance < 100) { // Limite de conexão de 100px
-                        opacityValue = 1 - (distance / 100);
-                        ctx.strokeStyle = `rgba(59, 130, 246, ${opacityValue})`; // Linha azul com transparência
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function animateParticles() {
-            requestAnimationFrame(animateParticles);
-
-            // Limpa o canvas com uma cor semi-transparente para criar um efeito de rastro
-            ctx.fillStyle = 'rgba(15, 23, 42, 0.2)'; // Cor de fundo do corpo (slate-900) com 0.2 de opacidade
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            connectParticles();
-
-            particles.forEach(particle => {
-                particle.update();
-            });
-        }
-        
-        // Inicialização do efeito de partículas
-        window.addEventListener('resize', setCanvasSize);
-        setCanvasSize();
-        initParticles();
-        animateParticles();
-
-
-        // --- NOVO: Lógica do Console Interativo (CLI) ---
-        const cliContainer = document.getElementById('cli-container');
-        const cliToggleBtn = document.getElementById('cli-toggle-btn');
-        const cliCloseBtn = document.getElementById('cli-close-btn');
-        const cliWindow = document.getElementById('cli-window');
-        const cliOutput = document.getElementById('cli-output');
-        const cliInput = document.getElementById('cli-input');
-        const cliHistory = [];
-        let historyIndex = -1;
-
-        const cliCommands = {
-            help: 'Comandos disponíveis:<br>- help (esta lista)<br>- projects (lista de projetos)<br>- about (informações)<br>- clear (limpa o terminal).<br>Use as setas para navegar no histórico.',
-            projects: `Projetos Ativos:
-  - rule34downloader (Python/C#)
-  - windowstranslator (C++/OCR)
-  - inceptum (Unity/C# - EM ANDAMENTO)
-  Digite 'projects [nome]' para detalhes (ex: projects inceptum).`,
-            about: `Nome: ChickChuck2 (Carlos Peres da Silva)
-Foco: Desenvolvimento de Jogos 2D, Sistemas Windows, POO.
-Skills: C#, Unity, Python, C++.
-Detalhes na seção #sobre.`,
-            clear: '' // Special command handled below
-        };
-
-        function printToCLI(text, color = '#0F0') {
-            const line = document.createElement('div');
-            line.innerHTML = text; 
-            line.style.color = color;
-            cliOutput.appendChild(line);
-            cliOutput.scrollTop = cliOutput.scrollHeight; // Scroll para o final
-        }
-
-        function executeCommand(command) {
-            const parts = command.trim().toLowerCase().split(/\s+/);
-            const cmd = parts[0];
-            const arg = parts.slice(1).join(' ');
-            
-            printToCLI(`<span style="color:#60A5FA; font-weight: bold;">guest@portfolio:~$</span> ${command}`, '#F1F5F9');
-
-            if (cliCommands[cmd] !== undefined && cmd !== 'clear') {
-                printToCLI(cliCommands[cmd], '#0F0');
-            } else if (cmd === 'clear') {
-                cliOutput.innerHTML = '';
-                printToCLI('Bem-vindo ao Terminal Interativo de ChickChuck2.<br>Digite \'help\' para comandos.', '#0F0');
-            } else if (cmd === 'projects' && arg) {
-                const projectKey = Object.keys(projectData).find(key => key.toLowerCase() === arg.toLowerCase());
-                if (projectKey) {
-                    printToCLI(`Detalhes do Projeto: ${projectData[projectKey].title}`, '#0F0');
-                    printToCLI(`Descrição: ${projectData[projectKey].description.substring(0, 100)}...`, '#0F0');
-                    printToCLI(`Tecnologias: ${projectData[projectKey].techs.join(', ')}`, '#0F0');
-                } else {
-                    printToCLI(`ERRO: Projeto '${arg}' não encontrado.`, 'red');
-                }
-            } else if (command) {
-                printToCLI(`ERRO: Comando '${command}' não encontrado. Digite 'help'.`, 'red');
-            }
-        }
-
-        cliInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const command = cliInput.value.trim();
-                if (command) {
-                    cliHistory.unshift(command);
-                    historyIndex = -1; // Reset index after new command
-                    executeCommand(command);
-                }
-                cliInput.value = '';
-            } else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                if (cliHistory.length > 0) {
-                    historyIndex = Math.min(historyIndex + 1, cliHistory.length - 1);
-                    cliInput.value = cliHistory[historyIndex];
-                }
-            } else if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                if (historyIndex > 0) {
-                    historyIndex--;
-                    cliInput.value = cliHistory[historyIndex];
-                } else {
-                    historyIndex = -1;
-                    cliInput.value = '';
-                }
-            }
-        });
-
-        cliToggleBtn.addEventListener('click', () => {
-            cliWindow.classList.toggle('hidden');
-            if (!cliWindow.classList.contains('hidden')) {
-                cliInput.focus();
-            }
-        });
-
-        cliCloseBtn.addEventListener('click', () => {
-            cliWindow.classList.add('hidden');
-        });
-
-
-        // --- NOVO: Lógica do Radar Chart (D3.js) ---
+        // --- LÓGICA DO RADAR CHART (D3.js) ---
         function renderRadarChart() {
-            // Verifica se a D3.js está carregada antes de tentar desenhar
             if (typeof d3 === 'undefined' || d3.select("#radar-chart").empty()) {
-                console.error("D3.js ou o container do radar chart não foi encontrado. Tentando novamente.");
+                // Tentar novamente mais tarde se o script D3 não estiver carregado (embora já deva estar)
+                console.error("D3.js ou o container do radar chart não foi encontrado.");
                 return;
             }
 
-            // Dados simulados de proficiência (valor de 0.0 a 1.0)
             const data = [
                 { skill: 'C#', value: 0.90 },
                 { skill: 'Unity', value: 0.85 },
@@ -1263,7 +924,6 @@ Detalhes na seção #sobre.`,
                 { skill: 'C/C++', value: 0.60 },
             ];
 
-            // Configurações do gráfico
             const chartWidth = 400;
             const chartHeight = 400;
             const radius = Math.min(chartWidth, chartHeight) / 2 - 30;
@@ -1275,25 +935,21 @@ Detalhes na seção #sobre.`,
 
             const rScale = d3.scaleLinear()
                 .range([0, radius])
-                .domain([0, 1]); // Proficiência de 0 a 1 (0% a 100%)
+                .domain([0, 1]); 
 
-            // Limpa o SVG antes de desenhar (evita duplicatas ao rolar para fora e voltar)
             d3.select("#radar-chart").selectAll("*").remove();
 
-            // Seleção e transformação do SVG
             const svg = d3.select("#radar-chart")
                 .attr("width", chartWidth)
                 .attr("height", chartHeight)
                 .append("g")
                 .attr("transform", `translate(${centerX}, ${centerY})`);
 
-            // Converter dados para formato de path (polígono)
             const radarLine = d3.lineRadial()
                 .curve(d3.curveLinearClosed)
                 .radius(d => rScale(d.value))
                 .angle((d, i) => i * angleSlice);
 
-            // 1. Círculos de Fundo (Background Rings)
             const levels = 5;
             const levelFactor = radius / levels;
 
@@ -1303,11 +959,10 @@ Detalhes na seção #sobre.`,
                     .attr("cy", 0)
                     .attr("r", levelFactor * (i + 1))
                     .style("fill", "none")
-                    .style("stroke", "rgba(59, 130, 246, 0.2)") // blue-500 transparente
+                    .style("stroke", "rgba(59, 130, 246, 0.2)")
                     .style("stroke-width", 1);
             }
 
-            // 2. Eixos (Linhas de Habilidade)
             const axis = svg.selectAll(".axis")
                 .data(data)
                 .enter()
@@ -1317,46 +972,42 @@ Detalhes na seção #sobre.`,
             axis.append("line")
                 .attr("x1", 0)
                 .attr("y1", 0)
-                // Usando seno e cosseno para calcular o ponto final de cada raio
                 .attr("x2", (d, i) => rScale(1) * Math.sin(i * angleSlice))
                 .attr("y2", (d, i) => rScale(1) * Math.cos(i * angleSlice) * -1)
                 .style("stroke", "rgba(96, 165, 250, 0.5)")
                 .style("stroke-width", "1px");
 
-            // 3. Labels das Habilidades
             axis.append("text")
                 .attr("class", "legend")
                 .style("font-size", "12px")
                 .attr("text-anchor", "middle")
-                .attr("x", (d, i) => (rScale(1.1) * Math.sin(i * angleSlice))) // 1.1 para espaçamento
-                .attr("y", (d, i) => (rScale(1.1) * Math.cos(i * angleSlice)) * -1) // -1 para inverter o eixo Y
+                .attr("x", (d, i) => (rScale(1.1) * Math.sin(i * angleSlice)))
+                .attr("y", (d, i) => (rScale(1.1) * Math.cos(i * angleSlice)) * -1)
                 .attr("dy", "0.35em")
                 .text(d => d.skill)
                 .style("fill", "white")
                 .style("filter", "drop-shadow(0 0 2px black)"); 
 
-            // 4. Área de Proficiência (O Polígono Principal)
             svg.append("path")
                 .datum(data)
                 .attr("d", radarLine)
-                .style("fill", "rgba(59, 130, 246, 0.4)") // blue-500 semi-transparente
+                .style("fill", "rgba(59, 130, 246, 0.4)") 
                 .style("stroke", "rgba(59, 130, 246, 0.8)")
                 .style("stroke-width", "2px")
-                .style("filter", "drop-shadow(0 0 8px rgba(59, 130, 246, 0.8))") // Brilho forte
-                .style("opacity", 0) // Começa invisível para a transição
+                .style("filter", "drop-shadow(0 0 8px rgba(59, 130, 246, 0.8))") 
+                .style("opacity", 0)
                 .transition()
                 .duration(1500)
                 .style("opacity", 1);
 
-            // 5. Pontos de Dados (Data Points)
-            const points = svg.selectAll(".data-point")
+            svg.selectAll(".data-point")
                 .data(data)
                 .enter().append("circle")
                 .attr("class", "data-point")
-                .attr("r", 5) // Tamanho do ponto
-                .attr("cx", 0) // Inicia no centro
+                .attr("r", 5) 
+                .attr("cx", 0) 
                 .attr("cy", 0)
-                .style("fill", "#60A5FA") // blue-400
+                .style("fill", "#60A5FA")
                 .style("stroke", "white")
                 .style("stroke-width", "1.5px")
                 .style("filter", "drop-shadow(0 0 5px white)")
@@ -1387,10 +1038,8 @@ Detalhes na seção #sobre.`,
                 .transition()
                 .duration(1500)
                 .attr("cx", (d, i) => rScale(d.value) * Math.sin(i * angleSlice))
-                .attr("cy", (d, i) => rScale(d.value) * Math.cos(i * angleSlice) * -1); // Inverte Y
-
+                .attr("cy", (d, i) => rScale(d.value) * Math.cos(i * angleSlice) * -1); 
         }
-
 
         // Observer para renderizar o gráfico ao entrar na tela
         const habilidadesSection = document.getElementById('habilidades');
@@ -1402,10 +1051,94 @@ Detalhes na seção #sobre.`,
                 }
             });
         }, { threshold: 0.3 }); 
+        // --- FIM LÓGICA DO RADAR CHART (D3.js) ---
+        
+        // --- LÓGICA THREE.JS (OBJETO 3D) ---
+        let scene, camera, renderer, cube;
+        let mouseX = 0, mouseY = 0;
+        let windowHalfX = window.innerWidth / 2;
+        let windowHalfY = window.innerHeight / 2;
+
+        function initThreeJS() {
+            const container = document.getElementById('three-container');
+            if (!container) return; // Não inicializa em mobile
+
+            // Scene
+            scene = new THREE.Scene();
+
+            // Camera
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 5;
+
+            // Renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // Alpha true para fundo transparente
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            // Geometry (Low-Poly Torus Knot for a complex tech look)
+            const geometry = new THREE.TorusKnotGeometry( 1, 0.4, 64, 8 );
+            const material = new THREE.MeshPhongMaterial({
+                color: 0x3B82F6, // blue-500
+                specular: 0x60A5FA, // blue-400
+                shininess: 100,
+                flatShading: true
+            });
+            cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0x404040, 5); // soft white light
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+            directionalLight.position.set(1, 1, 1).normalize();
+            scene.add(directionalLight);
+
+            // Event Listeners for mouse interaction
+            document.addEventListener('mousemove', onDocumentMouseMove, false);
+            window.addEventListener('resize', onWindowResize, false);
+            
+            animateThreeJS();
+        }
+        
+        function onDocumentMouseMove(event) {
+            mouseX = (event.clientX - windowHalfX) / 2;
+            mouseY = (event.clientY - windowHalfY) / 2;
+        }
+
+        function onWindowResize() {
+            const container = document.getElementById('three-container');
+            if (!container) return;
+
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+            
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        function animateThreeJS() {
+            requestAnimationFrame(animateThreeJS);
+
+            // Auto rotation
+            cube.rotation.x += 0.005;
+            cube.rotation.y += 0.008;
+
+            // Interactive movement (Camera follows mouse slightly)
+            camera.position.x += ( (mouseX * 0.005) - camera.position.x ) * 0.05;
+            camera.position.y += ( (-(mouseY * 0.005)) - camera.position.y ) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        }
+        // --- FIM LÓGICA THREE.JS ---
+
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Inicia o efeito de digitação
+            // Inicialização de todas as funcionalidades
             typeWriter();
+            initThreeJS(); // Inicializa o objeto 3D
 
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -1601,6 +1334,7 @@ Detalhes na seção #sobre.`,
         setCanvasSize();
         initParticles();
         animateParticles();
+
     </script>
 </body>
 </html>
