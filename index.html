@@ -30,7 +30,7 @@
         
         :root {
             --color-primary: #3B82F6; /* blue-500 */
-            --color-accent: #60A5FA; /* blue-400 */
+            --color-accent: #60A5FA;  /* blue-400 */
         }
         
         body {
@@ -54,7 +54,7 @@
             background: #3B82F6; /* Cor principal azul (blue-500) */
             border-radius: 4px;
             /* Efeito de brilho sutil */
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); 
             transition: background 0.3s, box-shadow 0.3s;
         }
 
@@ -109,7 +109,7 @@
 
         /* GLOW DE TEXTO GERAL */
         .text-glow {
-            text-shadow: 0 0 10px #60A5FA, 0 0 15px rgba(96, 165, 250, 0.5);
+            text-shadow: 0 0 10px #60A5FA, 0 0 15px rgba(96, 165, 250, 0.5); 
         }
 
         /* NEW: GLOWS DE CORES ESPECÍFICAS */
@@ -163,8 +163,8 @@
         .scrolled-header {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             /* Usando RGBA em vez da sintaxe do Tailwind /95 para melhor compatibilidade */
-            background-color: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(4px);
+            background-color: rgba(15, 23, 42, 0.95); 
+            backdrop-filter: blur(4px); 
         }
         
         /* Three.js Canvas Container */
@@ -183,7 +183,7 @@
         @media (max-width: 768px) {
             #three-container {
                 /* Ocultar ou diminuir drasticamente em mobile para performance */
-                display: none;
+                display: none; 
             }
         }
         
@@ -193,20 +193,6 @@
             display: none;
             transition: opacity 0.3s ease-out;
         }
-
-        /* NOVO: ESTILOS PARA O SCROLL AUTOMÁTICO DE TESTEMUNHOS */
-        #testimonials-container {
-            overflow-x: scroll; /* Rola na horizontal */
-            overflow-y: hidden;
-            white-space: nowrap; /* Impede quebra de linha dos cards */
-            /* Ocultar scrollbar para Webkit (Chrome, Safari) */
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-        }
-        #testimonials-container::-webkit-scrollbar {
-            display: none; /* Ocultar scrollbar para Chrome, Safari */
-        }
-        /* FIM: ESTILOS PARA O SCROLL AUTOMÁTICO DE TESTEMUNHOS */
     </style>
 </head>
 <body class="antialiased">
@@ -658,9 +644,9 @@
             
             <p class="text-lg text-gray-300 mb-8">Veja o que dizem sobre meu trabalho ou use o formulário abaixo para registrar seu próprio depoimento!</p>
 
-            <!-- Container para exibição de Testemunhos -->
-            <div id="testimonials-container" class="flex space-x-6 mb-16 overflow-x-scroll">
-                <p id="loading-message" class="text-gray-400 text-center flex-shrink-0 w-full">Carregando depoimentos...</p>
+            <!-- Container para exibição de Testemunhos (VOLTOU A SER LISTA VERTICAL) -->
+            <div id="testimonials-container" class="space-y-8 max-w-4xl mx-auto">
+                <p id="loading-message" class="text-gray-400 text-center">Carregando depoimentos...</p>
                 <!-- Cards de Testemunhos serão injetados aqui pelo JavaScript -->
             </div>
             <p id="error-message" class="text-red-400 text-center mt-4 hidden">Erro ao carregar os depoimentos. Exibindo dados de demonstração.</p>
@@ -853,57 +839,11 @@
             { quote: 'Carlos demonstrou proficiência excepcional em POO e otimização de código, superando desafios complexos.', name: 'Dr. Leda Santos', role: 'Professora de C# (SENAI)', source: 'LinkedIn' },
             { quote: 'O projeto Oveger é um exemplo brilhante de como o Carlos transforma necessidades de produtividade em soluções de software elegantes.', name: 'Eng. Marco Almeida', role: 'Mentor de Projetos', source: 'E-mail' },
             { quote: 'Sua dedicação é notável, especialmente no desenvolvimento de jogos. Um talento que tem muito a contribuir.', name: 'Alice Rocha', role: 'Desenvolvedora Full-Stack', source: 'Rede Profissional' },
-            { quote: 'Excelente atenção aos detalhes na arquitetura dos sistemas de desktop, algo raro de se ver.', name: 'Bruno Faria', role: 'Engenheiro de Software', source: 'Mentoria' }
+            { quote: 'Excelente atenção aos detalhes na arquitetura dos sistemas de desktop, algo raro de se ver. Esta é uma citação bem mais longa para demonstrar o recurso de text-wrap e como ele se comporta quando a largura da tela é ajustada.', name: 'Bruno Faria', role: 'Engenheiro de Software', source: 'Mentoria' }
         ];
 
-        // Global variables for scroll animation control
-        let scrollRequest = null;
-        let isPaused = false;
-        const scrollSpeed = 0.5; // Velocidade de scroll em pixels por frame
-        const scrollPauseTime = 3000; // Tempo de pausa no final do scroll (3 segundos)
-
-        function autoScrollTestimonials() {
-            const container = document.getElementById('testimonials-container');
-            // Alterado para scrollWidth e clientWidth para rolagem horizontal
-            if (!container || container.scrollWidth <= container.clientWidth) {
-                // Se não precisar rolar ou não houver container, não faz nada
-                return; 
-            }
-
-            if (!isPaused) {
-                // Move scroll position (scrollLeft para horizontal)
-                container.scrollLeft += scrollSpeed;
-
-                // Se o scroll atingir o final (com pequena margem de erro)
-                if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) { 
-                    // Pausa o scroll
-                    isPaused = true;
-                    setTimeout(() => {
-                         container.scrollLeft = 0; // Reseta para o início (esquerda)
-                         isPaused = false; // Retoma o scroll
-                    }, scrollPauseTime); 
-                }
-            }
-
-            scrollRequest = requestAnimationFrame(autoScrollTestimonials);
-        }
-
-        function startScrollLogic() {
-            const container = document.getElementById('testimonials-container');
-            if (container && container.scrollWidth > container.clientWidth) {
-                if (scrollRequest === null) {
-                    autoScrollTestimonials();
-                }
-                // Adiciona listeners para pausar/retomar no hover
-                container.addEventListener('mouseover', () => isPaused = true);
-                container.addEventListener('mouseout', () => isPaused = false);
-            } else if (scrollRequest !== null) {
-                cancelAnimationFrame(scrollRequest);
-                scrollRequest = null;
-            }
-        }
-
-
+        // Variáveis de Scroll removidas para desativar a rolagem automática horizontal.
+        
         function renderTestimonials(testimonials) {
             const container = document.getElementById('testimonials-container');
             const loadingMessage = document.getElementById('loading-message');
@@ -914,23 +854,23 @@
             container.innerHTML = ''; 
 
             if (testimonials.length === 0) {
-                container.innerHTML = '<p class="text-gray-400 text-center flex-shrink-0 w-full">Nenhum depoimento encontrado. Seja o primeiro a registrar!</p>';
+                container.innerHTML = '<p class="text-gray-400 text-center">Nenhum depoimento encontrado. Seja o primeiro a registrar!</p>';
                 return;
             }
 
             testimonials.forEach(t => {
                 const card = document.createElement('div');
-                // Alteração: Card agora tem max-h-[300px] e usa flex-col para controle de espaçamento interno.
-                card.className = 'bg-slate-700 p-6 rounded-xl glow-shadow shadow-lg flex flex-col justify-between flex-shrink-0 w-80 md:w-96 max-h-[300px] h-full'; 
+                // Card agora usa max-w-4xl e mx-auto para se centralizar e permitir text-wrap
+                card.className = 'bg-slate-700 p-6 rounded-xl glow-shadow shadow-lg space-y-4 max-w-4xl mx-auto'; 
                 
                 card.innerHTML = `
                     <div>
                         <div class="text-3xl text-blue-400 mb-4">“</div>
-                        <!-- NOVO: Adicionado max-h-[150px] e overflow-y-auto para scroll interno do texto longo -->
-                        <p class="text-base italic text-gray-200 max-h-[150px] overflow-y-auto pr-2 mb-4">${t.quote}</p> 
+                        <!-- NOVO: O texto agora tem quebra de linha natural (text-wrap) -->
+                        <p class="text-xl italic text-gray-200">${t.quote}</p> 
                     </div>
                     
-                    <div class="border-t border-slate-600 pt-4 mt-auto">
+                    <div class="border-t border-slate-600 pt-4 mt-4">
                         <p class="font-bold text-white text-lg">${t.name}</p>
                         <p class="text-blue-300 text-sm">${t.role}</p>
                         <p class="text-gray-500 text-xs mt-1">Fonte: ${t.source}</p>
@@ -939,7 +879,7 @@
                 container.appendChild(card);
             });
 
-            startScrollLogic(); // Inicia ou reinicia o scroll após renderizar
+            // Lógica de scroll removida.
         }
 
         async function fetchTestimonials() {
