@@ -196,8 +196,9 @@
 
         /* NOVO: ESTILOS PARA O SCROLL AUTOMÁTICO DE TESTEMUNHOS */
         #testimonials-container {
-            max-height: 400px; /* Altura fixa para permitir scroll */
-            overflow-y: scroll;
+            overflow-x: scroll; /* Rola na horizontal */
+            overflow-y: hidden;
+            white-space: nowrap; /* Impede quebra de linha dos cards */
             /* Ocultar scrollbar para Webkit (Chrome, Safari) */
             -ms-overflow-style: none; /* IE and Edge */
             scrollbar-width: none; /* Firefox */
@@ -658,8 +659,8 @@
             <p class="text-lg text-gray-300 mb-8">Veja o que dizem sobre meu trabalho ou use o formulário abaixo para registrar seu próprio depoimento!</p>
 
             <!-- Container para exibição de Testemunhos -->
-            <div id="testimonials-container" class="space-y-8 mb-16">
-                <p id="loading-message" class="text-gray-400 text-center">Carregando depoimentos...</p>
+            <div id="testimonials-container" class="flex space-x-6 mb-16 overflow-x-scroll">
+                <p id="loading-message" class="text-gray-400 text-center flex-shrink-0 w-full">Carregando depoimentos...</p>
                 <!-- Cards de Testemunhos serão injetados aqui pelo JavaScript -->
             </div>
             <p id="error-message" class="text-red-400 text-center mt-4 hidden">Erro ao carregar os depoimentos. Exibindo dados de demonstração.</p>
@@ -863,21 +864,22 @@
 
         function autoScrollTestimonials() {
             const container = document.getElementById('testimonials-container');
-            if (!container || container.scrollHeight <= container.clientHeight) {
+            // Alterado para scrollWidth e clientWidth para rolagem horizontal
+            if (!container || container.scrollWidth <= container.clientWidth) {
                 // Se não precisar rolar ou não houver container, não faz nada
                 return; 
             }
 
             if (!isPaused) {
-                // Move scroll position
-                container.scrollTop += scrollSpeed;
+                // Move scroll position (scrollLeft para horizontal)
+                container.scrollLeft += scrollSpeed;
 
                 // Se o scroll atingir o final (com pequena margem de erro)
-                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 1) { 
+                if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 1) { 
                     // Pausa o scroll
                     isPaused = true;
                     setTimeout(() => {
-                         container.scrollTop = 0; // Reseta para o topo
+                         container.scrollLeft = 0; // Reseta para o início (esquerda)
                          isPaused = false; // Retoma o scroll
                     }, scrollPauseTime); 
                 }
@@ -888,7 +890,7 @@
 
         function startScrollLogic() {
             const container = document.getElementById('testimonials-container');
-            if (container && container.scrollHeight > container.clientHeight) {
+            if (container && container.scrollWidth > container.clientWidth) {
                 if (scrollRequest === null) {
                     autoScrollTestimonials();
                 }
@@ -905,20 +907,24 @@
         function renderTestimonials(testimonials) {
             const container = document.getElementById('testimonials-container');
             const loadingMessage = document.getElementById('loading-message');
-            container.innerHTML = '';
-            loadingMessage.classList.add('hidden');
+            // Oculta a mensagem de loading
+            loadingMessage.classList.add('hidden'); 
+            
+            // Limpa o container
+            container.innerHTML = ''; 
 
             if (testimonials.length === 0) {
-                container.innerHTML = '<p class="text-gray-400 text-center">Nenhum depoimento encontrado. Seja o primeiro a registrar!</p>';
+                container.innerHTML = '<p class="text-gray-400 text-center flex-shrink-0 w-full">Nenhum depoimento encontrado. Seja o primeiro a registrar!</p>';
                 return;
             }
 
             testimonials.forEach(t => {
                 const card = document.createElement('div');
-                card.className = 'bg-slate-700 p-6 rounded-xl glow-shadow shadow-lg space-y-4';
+                // Adicionado w-80 md:w-96 e flex-shrink-0 para layout horizontal
+                card.className = 'bg-slate-700 p-6 rounded-xl glow-shadow shadow-lg space-y-4 flex-shrink-0 w-80 md:w-96'; 
                 card.innerHTML = `
                     <div class="text-3xl text-blue-400 mb-4">“</div>
-                    <p class="text-xl italic text-gray-200">${t.quote}</p>
+                    <p class="text-base italic text-gray-200">${t.quote}</p>
                     <div class="border-t border-slate-600 pt-4">
                         <p class="font-bold text-white text-lg">${t.name}</p>
                         <p class="text-blue-300 text-sm">${t.role}</p>
@@ -928,7 +934,7 @@
                 container.appendChild(card);
             });
 
-            startScrollLogic(); // NOVO: Inicia ou reinicia o scroll após renderizar
+            startScrollLogic(); // Inicia ou reinicia o scroll após renderizar
         }
 
         async function fetchTestimonials() {
