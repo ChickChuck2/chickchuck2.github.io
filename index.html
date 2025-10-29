@@ -107,10 +107,18 @@
             box-shadow: 0 0 20px rgba(59, 130, 246, 0.7), 0 0 8px rgba(59, 130, 246, 0.4); /* Brilho mais forte no hover */
         }
 
-        /* GLOW DE TEXTO */
+        /* GLOW DE TEXTO GERAL */
         .text-glow {
             text-shadow: 0 0 10px #60A5FA, 0 0 15px rgba(96, 165, 250, 0.5); 
         }
+
+        /* NEW: GLOWS DE CORES ESPECÍFICAS */
+        .text-glow-csharp { text-shadow: 0 0 10px #A020F0, 0 0 15px rgba(160, 32, 240, 0.7); color: #A020F0; } /* Roxo para C# */
+        .text-glow-unity { text-shadow: 0 0 10px #F1F5F9, 0 0 15px rgba(241, 245, 249, 0.5); color: #F1F5F9; } /* Prata/Branco para Unity */
+        .text-glow-python { text-shadow: 0 0 10px #FFD43B, 0 0 15px rgba(255, 212, 59, 0.7); color: #FFD43B; } /* Amarelo para Python */
+        .text-glow-cpp { text-shadow: 0 0 10px #4080FF, 0 0 15px rgba(64, 128, 255, 0.7); color: #4080FF; } /* Azul Elétrico para C++ */
+        .text-glow-poo { text-shadow: 0 0 10px #06B6D4, 0 0 15px rgba(6, 182, 212, 0.5); color: #06B6D4; } /* Ciano para POO */
+
 
         /* Estilo do ícone de Habilidade */
         .skill-icon {
@@ -297,25 +305,25 @@
             <div class="text-lg space-y-6">
                 
                 <p>
-                    Sou um desenvolvedor autodidata e estudante no SENAI, movido pela paixão de criar software robusto, seja para utilitários de sistema ou para dar vida a novos mundos em jogos. Minha base é o **C#**, minha linguagem favorita, que utilizo extensivamente na **Unity** e em aplicações Windows, valorizando sua eficiência e excelente compatibilidade.
+                    Sou um desenvolvedor autodidata e estudante no SENAI, movido pela paixão de criar software robusto, seja para utilitários de sistema ou para dar vida a novos mundos em jogos. Minha base é o <span class="text-glow-csharp font-extrabold">C#</span>, minha linguagem favorita, que utilizo extensivamente na <span class="text-glow-unity font-extrabold">Unity</span> e em aplicações Windows, valorizando sua eficiência e excelente compatibilidade.
                 </p>
 
                 <h3 class="text-2xl font-semibold text-blue-400 mt-8 mb-4">Arquitetura e Metodologia</h3>
                 <p>
-                    Minha filosofia de código é profundamente enraizada na **Programação Orientada a Objetos (POO)**. Em projetos Unity, aplico rigorosamente o encapsulamento, utilizando classes base para estruturar comportamentos e subclasses específicas para herança e modularidade, garantindo reuso e fácil manutenção. Utilizo a metodologia **Agile** e princípios de **XP**, buscando a excelência por meio de entregas contínuas e adaptáveis e a implementação de testes automatizados.
+                    Minha filosofia de código é profundamente enraizada na <span class="text-glow-poo font-extrabold">Programação Orientada a Objetos (POO)</span>. Em projetos Unity, aplico rigorosamente o encapsulamento, utilizando classes base para estruturar comportamentos e subclasses específicas para herança e modularidade, garantindo reuso e fácil manutenção. Utilizo a metodologia <span class="text-blue-400 font-extrabold">Agile</span> e princípios de <span class="text-blue-400 font-extrabold">XP (Extreme Programming)</span>, buscando a excelência por meio de entregas contínuas e adaptáveis e a implementação de testes automatizados.
                 </p>
 
                 <h3 class="text-2xl font-semibold text-blue-400 mt-8 mb-4">Engenharia de Sistemas e Jogos</h3>
                 <p>
-                    Minha experiência se divide entre a criação de **Jogos 2D** (onde encontro a satisfação de criar uma história a partir de desenhos e sprites) e o desenvolvimento de **Utilitários de Windows**. Projetos como **Oveger** nasceram da necessidade prática de otimizar meu próprio fluxo de trabalho, eliminando o tempo gasto com tarefas repetitivas. Superar o desafio de manipular a hierarquia de objetos (parenting) em aplicações de desktop me deu valiosas lições sobre a superação de problemas técnicos complexos.
+                    Minha experiência se divide entre a criação de <span class="text-glow-unity font-extrabold">Jogos 2D</span> (onde encontro a satisfação de criar uma história a partir de desenhos e sprites) e o desenvolvimento de **Utilitários de Windows**. Projetos como <span class="text-blue-400 font-extrabold">Oveger</span> nasceram da necessidade prática de otimizar meu próprio fluxo de trabalho, eliminando o tempo gasto com tarefas repetitivas. Superar o desafio de manipular a hierarquia de objetos (*parenting*) em aplicações de desktop me deu valiosas lições sobre a superação de problemas técnicos complexos.
                 </p>
                 
                 <h3 class="text-2xl font-semibold text-blue-400 mt-8 mb-4">Visão de Crescimento e Equilíbrio</h3>
                 <p>
-                    Embora minha maior fraqueza seja o desenvolvimento **Front-end** (uma área que busco ativamente dominar para me tornar um desenvolvedor full-stack), meu foco principal é aprimorar meu conhecimento atual. O SENAI complementa minha base prática, aprofundando a teoria e a disciplina de **UI/UX** e arquitetura. Meu objetivo de longo prazo é conseguir um emprego e dedicar-me profissionalmente à criação de jogos.
+                    Embora minha maior fraqueza seja o desenvolvimento **Front-end** (uma área que busco ativamente dominar para me tornar um desenvolvedor full-stack), meu foco principal é aprimorar meu conhecimento atual. O SENAI complementa minha base prática, aprofundando a teoria e a disciplina de <span class="text-blue-400 font-extrabold">UI/UX</span> e arquitetura. Meu objetivo de longo prazo é conseguir um emprego e dedicar-me profissionalmente à criação de jogos.
                 </p>
                 <p>
-                    Para manter o equilíbrio, priorizo o **Planejamento** (o alicerce da determinação em qualquer projeto) e hobbies como a **Musculação** (essencial para o equilíbrio emocional e psicológico que o trabalho em tecnologia exige) e a programação de **Arduino** (que reforça meu conhecimento em C/C++ e hardware).
+                    Para manter o equilíbrio, priorizo o **Planejamento** (o alicerce da determinação em qualquer projeto) e hobbies como a **Musculação** (essencial para o equilíbrio emocional e psicológico que o trabalho em tecnologia exige) e a programação de <span class="text-glow-cpp font-extrabold">Arduino</span> (que reforça meu conhecimento em C/C++ e hardware).
                 </p>
                 
             </div>
@@ -337,7 +345,7 @@
                         <p class="mb-1 text-xs text-blue-400 font-bold">2018 - 2020</p>
                         <h3 class="mb-3 font-bold text-lg text-white">O Despertar da Programação</h3>
                         <p class="text-sm leading-snug tracking-wide text-gray-300">
-                            Início da jornada autodidata em programação, adquirindo o básico de Python e desenvolvendo os primeiros programas utilitários para o sistema operacional Windows. **"10 bilhões de por cento, o código vai funcionar."**
+                            Início da jornada autodidata em programação, adquirindo o básico de <span class="text-glow-python font-semibold">Python</span> e desenvolvendo os primeiros programas utilitários para o sistema operacional Windows. <span class="text-yellow-400 font-semibold">"10 bilhões de por cento, o código vai funcionar."</span>
                         </p>
                     </div>
                 </div>
@@ -349,7 +357,7 @@
                             <p class="mb-1 text-xs text-blue-400 font-bold">2020 - 2022</p>
                             <h3 class="mb-3 font-bold text-lg text-white">Aprofundamento e Expansão de Stack</h3>
                             <p class="text-sm leading-snug tracking-wide text-gray-300">
-                                Estudo autodidata de Java para Android e a introdução ao C# na Unity. Criação de programas para Windows/Android e experimentação com serviços em nuvem (Azure).
+                                Estudo autodidata de Java para Android e a introdução ao <span class="text-glow-csharp font-semibold">C#</span> na <span class="text-glow-unity font-semibold">Unity</span>. Criação de programas para Windows/Android e experimentação com serviços em nuvem (Azure).
                             </p>
                         </div>
                     </div>
@@ -365,7 +373,7 @@
                         <p class="mb-1 text-xs text-blue-400 font-bold">2022 - 2024</p>
                         <h3 class="mb-3 font-bold text-lg text-white">C/C++, Robótica e o Projeto <span class="text-yellow-400 text-glow">Inceptum</span></h3>
                         <p class="text-sm leading-snug tracking-wide text-gray-300">
-                            Aprimoramento avançado em C#, aprendizado de C e C++ voltado para projetos de Arduino e robótica. Período crucial marcado pelo lançamento do projeto de sobrevivência multiplayer <span class="text-yellow-400 font-semibold">Inceptum</span>.
+                            Aprimoramento avançado em <span class="text-glow-csharp font-semibold">C#</span>, aprendizado de <span class="text-glow-cpp font-semibold">C e C++</span> voltado para projetos de Arduino e robótica. Período crucial marcado pelo lançamento do projeto de sobrevivência multiplayer <span class="text-yellow-400 font-semibold">Inceptum</span>.
                         </p>
                     </div>
                 </div>
@@ -411,19 +419,19 @@
 
                     <!-- Card Habilidade: C# -->
                     <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                        <span class="skill-icon text-4xl font-extrabold text-[#7F00FF]" role="img" aria-label="C Sharp Icon">C#</span>
+                        <span class="skill-icon text-4xl font-extrabold" style="color: #A020F0;" role="img" aria-label="C Sharp Icon">C#</span>
                         <span class="mt-3 text-sm font-semibold">C Sharp</span>
                     </div>
                     
                     <!-- Card Habilidade: C++ -->
                     <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                        <span class="skill-icon text-4xl font-extrabold text-[#00599C]" role="img" aria-label="C Plus Plus Icon">C++</span>
+                        <span class="skill-icon text-4xl font-extrabold" style="color: #4080FF;" role="img" aria-label="C Plus Plus Icon">C++</span>
                         <span class="mt-3 text-sm font-semibold">C Plus Plus</span>
                     </div>
                     
                     <!-- Card Habilidade: C -->
                     <div class="flex flex-col items-center justify-center p-4 bg-slate-700 rounded-xl glow-shadow transform hover:scale-105 transition duration-300 ease-in-out text-center">
-                        <span class="skill-icon text-4xl font-extrabold text-[#555555]" role="img" aria-label="C Language Icon">C</span>
+                        <span class="skill-icon text-4xl font-extrabold" style="color: #619CBF;" role="img" aria-label="C Language Icon">C</span>
                         <span class="mt-3 text-sm font-semibold">Linguagem C</span>
                     </div>
 
@@ -468,7 +476,7 @@
                     <div class="text-5xl font-extrabold text-blue-400 mb-2">
                         <span id="stat-lines" data-target="15000">0</span>+
                     </div>
-                    <p class="text-gray-300 font-semibold">Linhas de Código Escritas (C# / Python)</p>
+                    <p class="text-gray-300 font-semibold">Linhas de Código Escritas (<span class="text-glow-csharp" style="text-shadow: none; color: #A020F0;">C#</span> / <span class="text-glow-python" style="text-shadow: none; color: #FFD43B;">Python</span>)</p>
                 </div>
 
                 <!-- Stat 2: Horas em Projetos (Simulado) -->
@@ -476,7 +484,7 @@
                     <div class="text-5xl font-extrabold text-blue-400 mb-2">
                         <span id="stat-hours" data-target="1500">0</span>+
                     </div>
-                    <p class="text-gray-300 font-semibold">Horas de Desenvolvimento em Unity</p>
+                    <p class="text-gray-300 font-semibold">Horas de Desenvolvimento em <span class="text-glow-unity" style="text-shadow: none; color: #F1F5F9;">Unity</span></p>
                 </div>
 
                 <!-- Stat 3: Projetos Publicados/Concluídos -->
@@ -625,7 +633,7 @@
                         <rect x="2" y="9" width="4" height="12"/>
                         <circle cx="4" cy="4" r="2" fill="currentColor"/>
                     </svg>
-                    <span class="text-lg font-semibold">LinkedIn (Carlos Peres)</span>
+                    <span class="text-lg font-semibold">LinkedIn (<span class="text-blue-300">Carlos Peres da Silva</span>)</span>
                 </a>
 
                 <!-- Link Instagram (Inceptum Game) -->
@@ -654,7 +662,7 @@
     <!-- Rodapé -->
     <footer class="bg-gray-900 mt-20 p-8 border-t border-slate-700 md:ml-64">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400">
-            <p>&copy; 2025 ChickChuck2. Todos os direitos reservados.</p>
+            <p>&copy; 2025 Carlos Silva. Todos os direitos reservados.</p>
             <div class="flex space-x-4 mt-4 md:mt-0">
                 <a href="https://github.com/ChickChuck2" target="_blank" class="hover:text-blue-400 transition-colors duration-300" aria-label="Github Profile">
                     <!-- Icone GitHub SVG -->
@@ -951,6 +959,9 @@
 
             const levels = 5;
             const levelFactor = radius / levels;
+            
+            const purpleColor = "#A020F0"; // C# Purple
+            const baseBlue = "#3B82F6"; // Base Blue
 
             for (let i = 0; i < levels; i++) {
                 svg.append("circle")
@@ -958,7 +969,7 @@
                     .attr("cy", 0)
                     .attr("r", levelFactor * (i + 1))
                     .style("fill", "none")
-                    .style("stroke", "rgba(59, 130, 246, 0.2)")
+                    .style("stroke", `rgba(160, 32, 240, 0.2)`) // Grade com tom roxo
                     .style("stroke-width", 1);
             }
 
@@ -973,7 +984,7 @@
                 .attr("y1", 0)
                 .attr("x2", (d, i) => rScale(1) * Math.sin(i * angleSlice))
                 .attr("y2", (d, i) => rScale(1) * Math.cos(i * angleSlice) * -1)
-                .style("stroke", "rgba(96, 165, 250, 0.5)")
+                .style("stroke", `rgba(160, 32, 240, 0.5)`) // Spokes com tom roxo
                 .style("stroke-width", "1px");
 
             axis.append("text")
@@ -990,10 +1001,10 @@
             svg.append("path")
                 .datum(data)
                 .attr("d", radarLine)
-                .style("fill", "rgba(59, 130, 246, 0.4)") 
-                .style("stroke", "rgba(59, 130, 246, 0.8)")
+                .style("fill", `rgba(160, 32, 240, 0.4)`) // Área de preenchimento roxa
+                .style("stroke", `rgba(160, 32, 240, 0.8)`)
                 .style("stroke-width", "2px")
-                .style("filter", "drop-shadow(0 0 8px rgba(59, 130, 246, 0.8))") 
+                .style("filter", `drop-shadow(0 0 8px rgba(160, 32, 240, 0.8))`) 
                 .style("opacity", 0)
                 .transition()
                 .duration(1500)
@@ -1006,7 +1017,7 @@
                 .attr("r", 5) 
                 .attr("cx", 0) 
                 .attr("cy", 0)
-                .style("fill", "#60A5FA")
+                .style("fill", baseBlue) // Pontos azuis
                 .style("stroke", "white")
                 .style("stroke-width", "1.5px")
                 .style("filter", "drop-shadow(0 0 5px white)")
@@ -1031,7 +1042,7 @@
                     d3.select(this)
                         .transition().duration(200)
                         .attr('r', 5)
-                        .style('fill', '#60A5FA');
+                        .style('fill', baseBlue);
                     svg.select('.tooltip-text').remove();
                 })
                 .transition()
