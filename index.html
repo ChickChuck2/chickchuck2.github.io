@@ -30,7 +30,7 @@
         
         :root {
             --color-primary: #3B82F6; /* blue-500 */
-            --color-accent: #60A5FA;  /* blue-400 */
+            --color-accent: #60A5FA;  /* blue-400 */
         }
         
         body {
@@ -54,7 +54,7 @@
             background: #3B82F6; /* Cor principal azul (blue-500) */
             border-radius: 4px;
             /* Efeito de brilho sutil */
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); 
+            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); 
             transition: background 0.3s, box-shadow 0.3s;
         }
 
@@ -109,7 +109,7 @@
 
         /* GLOW DE TEXTO GERAL */
         .text-glow {
-            text-shadow: 0 0 10px #60A5FA, 0 0 15px rgba(96, 165, 250, 0.5); 
+            text-shadow: 0 0 10px #60A5FA, 0 0 15px rgba(96, 165, 250, 0.5); 
         }
 
         /* NEW: GLOWS DE CORES ESPECÍFICAS */
@@ -163,8 +163,8 @@
         .scrolled-header {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             /* Usando RGBA em vez da sintaxe do Tailwind /95 para melhor compatibilidade */
-            background-color: rgba(15, 23, 42, 0.95); 
-            backdrop-filter: blur(4px); 
+            background-color: rgba(15, 23, 42, 0.95); 
+            backdrop-filter: blur(4px); 
         }
         
         /* Three.js Canvas Container */
@@ -183,7 +183,7 @@
         @media (max-width: 768px) {
             #three-container {
                 /* Ocultar ou diminuir drasticamente em mobile para performance */
-                display: none; 
+                display: none; 
             }
         }
         
@@ -291,7 +291,7 @@
         
         <!-- Seção 1: Início/Hero -->
         <section id="home" class="min-h-[calc(100vh-64px)] flex items-center justify-center p-8 text-center fade-in-up relative">
-             <!-- Three.js Container (Objeto 3D) -->
+             <!-- Three.js Container (Objeto 3D) -->
             <div id="three-container" class="hidden sm:block"></div>
 
             <div class="space-y-6 max-w-4xl z-20">
@@ -638,15 +638,49 @@
             </div>
         </section>
 
-        <!-- Seção 7.5: Testemunhos (NOVA SEÇÃO) -->
+        <!-- Seção 7.5: Testemunhos (NOVA SEÇÃO COM FORMULÁRIO DE REGISTRO) -->
         <section id="testemunhos" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
             <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Testemunhos</h2>
             
-            <div id="testimonials-container" class="space-y-8">
+            <p class="text-lg text-gray-300 mb-8">Veja o que dizem sobre meu trabalho ou use o formulário abaixo para registrar seu próprio depoimento!</p>
+
+            <!-- Container para exibição de Testemunhos -->
+            <div id="testimonials-container" class="space-y-8 mb-16">
                 <p id="loading-message" class="text-gray-400 text-center">Carregando depoimentos...</p>
                 <!-- Cards de Testemunhos serão injetados aqui pelo JavaScript -->
             </div>
             <p id="error-message" class="text-red-400 text-center mt-4 hidden">Erro ao carregar os depoimentos. Exibindo dados de demonstração.</p>
+
+            <!-- FORMULÁRIO DE SUBMISSÃO (NOVO) -->
+            <div class="mt-16 pt-8 border-t border-slate-700">
+                <h3 class="text-3xl font-bold text-blue-400 mb-6">Deixe Seu Testemunho</h3>
+                <form id="testimonial-form" class="space-y-4 max-w-xl mx-auto md:mx-0">
+                    <div>
+                        <label for="form-quote" class="block text-sm font-medium text-gray-300 mb-1">Seu Depoimento (Obrigatório)</label>
+                        <textarea id="form-quote" name="quote" required rows="4" class="w-full p-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-white resize-none" oninput="updateSubmitButtonState()"></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="form-name" class="block text-sm font-medium text-gray-300 mb-1">Seu Nome (Obrigatório)</label>
+                            <input type="text" id="form-name" name="name" required class="w-full p-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-white" oninput="updateSubmitButtonState()">
+                        </div>
+                        <div>
+                            <label for="form-role" class="block text-sm font-medium text-gray-300 mb-1">Seu Cargo/Função</label>
+                            <input type="text" id="form-role" name="role" class="w-full p-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-white" placeholder="Ex: Professor(a) / Colega de Trabalho">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="form-source" class="block text-sm font-medium text-gray-300 mb-1">Fonte (Ex: LinkedIn, E-mail)</label>
+                        <input type="text" id="form-source" name="source" class="w-full p-3 bg-slate-700 border border-slate-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 text-white" placeholder="Ex: LinkedIn">
+                    </div>
+                    
+                    <button type="submit" id="submit-testimonial-btn" disabled class="w-full px-6 py-3 bg-blue-600 text-white font-bold rounded-lg glow-shadow hover:bg-blue-700 transition duration-300 disabled:bg-slate-600 disabled:shadow-none disabled:cursor-not-allowed">
+                        <span id="btn-text">Enviar Depoimento</span>
+                        <span id="btn-loading" class="hidden">Enviando...</span>
+                    </button>
+                    <div id="form-feedback" class="text-center mt-4 hidden font-medium"></div>
+                </form>
+            </div>
         </section>
         
         <!-- Seção 8: Contato e Redes Sociais (SEM FORMULÁRIO) -->
@@ -657,9 +691,9 @@
             <div class="flex flex-col items-center justify-center gap-8">
                 
                 <!-- Link LinkedIn -->
-                <a href="https://www.linkedin.com/in/carlos-peres-da-silva-338849205/" target="_blank" 
-                   class="w-full max-w-sm flex items-center justify-center space-x-4 p-4 bg-blue-700/50 rounded-lg glow-shadow transform hover:scale-[1.03] transition duration-300 ease-in-out"
-                   aria-label="Perfil do LinkedIn">
+                <a href="https://www.linkedin.com/in/carlos-peres-da-silva-338849205/" target="_blank" 
+                    class="w-full max-w-sm flex items-center justify-center space-x-4 p-4 bg-blue-700/50 rounded-lg glow-shadow transform hover:scale-[1.03] transition duration-300 ease-in-out"
+                    aria-label="Perfil do LinkedIn">
                     <!-- LinkedIn Icon SVG -->
                     <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
@@ -670,9 +704,9 @@
                 </a>
 
                 <!-- Link Instagram (Inceptum Game) -->
-                <a href="https://www.instagram.com/inceptumthegame/" target="_blank" 
-                   class="w-full max-w-sm flex items-center justify-center space-x-4 p-4 bg-pink-700/50 rounded-lg glow-shadow transform hover:scale-[1.03] transition duration-300 ease-in-out"
-                   aria-label="Instagram do projeto Inceptum">
+                <a href="https://www.instagram.com/inceptumthegame/" target="_blank" 
+                    class="w-full max-w-sm flex items-center justify-center space-x-4 p-4 bg-pink-700/50 rounded-lg glow-shadow transform hover:scale-[1.03] transition duration-300 ease-in-out"
+                    aria-label="Instagram do projeto Inceptum">
                     <!-- Instagram Icon SVG -->
                     <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -801,6 +835,8 @@
         const GOOGLE_SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyPAfeFeYoujcE0kZyXbo1daHo9qARJjuPPw5RGc1pCczW1tTcjSldGrkiicV6mAQinVg/exec';
         
         const placeholderTestimonials = [
+            { quote: 'Carlos demonstrou proficiência excepcional em POO e otimização de código, superando desafios complexos.', name: 'Dr. Leda Santos', role: 'Professora de C# (SENAI)', source: 'LinkedIn' },
+            { quote: 'O projeto Oveger é um exemplo brilhante de como o Carlos transforma necessidades de produtividade em soluções de software elegantes.', name: 'Eng. Marco Almeida', role: 'Mentor de Projetos', source: 'E-mail' }
         ];
 
         function renderTestimonials(testimonials) {
@@ -810,7 +846,7 @@
             loadingMessage.classList.add('hidden');
 
             if (testimonials.length === 0) {
-                container.innerHTML = '<p class="text-gray-400 text-center">Nenhum depoimento encontrado.</p>';
+                container.innerHTML = '<p class="text-gray-400 text-center">Nenhum depoimento encontrado. Seja o primeiro a registrar!</p>';
                 return;
             }
 
@@ -832,7 +868,7 @@
 
         async function fetchTestimonials() {
             try {
-                // Tenta carregar do Google Sheet (URL fictícia no momento)
+                // Tenta carregar do Google Sheet
                 const response = await fetch(GOOGLE_SHEET_API_URL);
                 if (!response.ok) throw new Error('Falha ao carregar dados da API');
                 
@@ -851,7 +887,70 @@
                 renderTestimonials(placeholderTestimonials);
             }
         }
-        // --- FIM LÓGICA DO TESTEMUNHOS ---
+        
+        // --- LÓGICA DE SUBMISSÃO (POST) ---
+        const testimonialForm = document.getElementById('testimonial-form');
+        const submitBtn = document.getElementById('submit-testimonial-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnLoading = document.getElementById('btn-loading');
+        const formFeedback = document.getElementById('form-feedback');
+        const formQuote = document.getElementById('form-quote');
+        const formName = document.getElementById('form-name');
+
+        function updateSubmitButtonState() {
+            // Habilita o botão se quote e name não estiverem vazios
+            const isReady = formQuote.value.trim() !== '' && formName.value.trim() !== '';
+            submitBtn.disabled = !isReady;
+        }
+
+        async function handleTestimonialSubmission(event) {
+            event.preventDefault();
+            
+            submitBtn.disabled = true;
+            btnText.classList.add('hidden');
+            btnLoading.classList.remove('hidden');
+            formFeedback.classList.add('hidden');
+
+            const formData = new FormData(testimonialForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch(GOOGLE_SHEET_API_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'text/plain;charset=utf-8', // Requerido pelo Apps Script para POST
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    formFeedback.textContent = 'Sucesso! Seu depoimento foi enviado e está sendo carregado.';
+                    formFeedback.className = 'text-center mt-4 text-green-400 font-bold';
+                    testimonialForm.reset();
+                    // Tenta recarregar os testemunhos para mostrar o novo (pode ser necessário atualizar manualmente a página, dependendo da aprovação no Apps Script)
+                    fetchTestimonials(); 
+                } else {
+                    throw new Error(result.error || 'Erro desconhecido ao enviar.');
+                }
+
+            } catch (error) {
+                console.error('Submission Error:', error);
+                formFeedback.textContent = `Erro: ${error.message}. Verifique sua conexão.`;
+                formFeedback.className = 'text-center mt-4 text-red-400 font-bold';
+            } finally {
+                btnText.classList.remove('hidden');
+                btnLoading.classList.add('hidden');
+                formFeedback.classList.remove('hidden');
+                updateSubmitButtonState(); // Re-avalia o estado do botão
+                btnLoading.classList.add('hidden');
+                btnText.classList.remove('hidden');
+            }
+        }
+        // --- FIM LÓGICA DE SUBMISSÃO (POST) ---
+        
         
         const modal = document.getElementById('project-modal');
         const modalContentWrapper = document.getElementById('modal-content-wrapper');
@@ -945,7 +1044,7 @@
                         // Força a re-aplicação do fade-in removendo e adicionando a classe
                         card.classList.remove('hidden-filter');
                         card.style.opacity = 1;
-                    }, 50); 
+                    }, 50); 
                 } else {
                     card.classList.add('hidden-filter');
                     card.style.opacity = 0;
@@ -970,8 +1069,8 @@
         // --- EFEITO DE DIGITAÇÃO ---
         const typingElement = document.getElementById('typing-text');
         const professions = [
-            "Desenvolvedor de Sistemas", 
-            "Especialista em Utilitários Windows", 
+            "Desenvolvedor de Sistemas", 
+            "Especialista em Utilitários Windows", 
             "Game Developer (Unity)",
             "Apaixonado por Otimização"
         ];
@@ -1075,7 +1174,7 @@
 
             const rScale = d3.scaleLinear()
                 .range([0, radius])
-                .domain([0, 1]); 
+                .domain([0, 1]); 
 
             d3.select("#radar-chart").selectAll("*").remove();
 
@@ -1129,7 +1228,7 @@
                 .attr("dy", "0.35em")
                 .text(d => d.skill)
                 .style("fill", "white")
-                .style("filter", "drop-shadow(0 0 2px black)"); 
+                .style("filter", "drop-shadow(0 0 2px black)"); 
 
             svg.append("path")
                 .datum(data)
@@ -1137,7 +1236,7 @@
                 .style("fill", `rgba(160, 32, 240, 0.4)`) // Área de preenchimento roxa
                 .style("stroke", `rgba(160, 32, 240, 0.8)`)
                 .style("stroke-width", "2px")
-                .style("filter", `drop-shadow(0 0 8px rgba(160, 32, 240, 0.8))`) 
+                .style("filter", `drop-shadow(0 0 8px rgba(160, 32, 240, 0.8))`) 
                 .style("opacity", 0)
                 .transition()
                 .duration(1500)
@@ -1147,8 +1246,8 @@
                 .data(data)
                 .enter().append("circle")
                 .attr("class", "data-point")
-                .attr("r", 5) 
-                .attr("cx", 0) 
+                .attr("r", 5) 
+                .attr("cx", 0) 
                 .attr("cy", 0)
                 .style("fill", baseBlue) // Pontos azuis
                 .style("stroke", "white")
@@ -1181,7 +1280,7 @@
                 .transition()
                 .duration(1500)
                 .attr("cx", (d, i) => rScale(d.value) * Math.sin(i * angleSlice))
-                .attr("cy", (d, i) => rScale(d.value) * Math.cos(i * angleSlice) * -1); 
+                .attr("cy", (d, i) => rScale(d.value) * Math.cos(i * angleSlice) * -1); 
         }
 
         // Observer para renderizar o gráfico ao entrar na tela
@@ -1190,10 +1289,10 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     renderRadarChart();
-                    observer.unobserve(habilidadesSection); 
+                    observer.unobserve(habilidadesSection); 
                 }
             });
-        }, { threshold: 0.3 }); 
+        }, { threshold: 0.3 }); 
         // --- FIM LÓGICA DO RADAR CHART (D3.js) ---
         
         // --- LÓGICA THREE.JS (OBJETO 3D) ---
@@ -1287,7 +1386,7 @@
             const mobileMenu = document.getElementById('mobile-menu');
             const navLinks = document.querySelectorAll('#mobile-menu a, #sidebar a');
             const sections = document.querySelectorAll('.fade-in-up');
-
+            
             // 1. Funcionalidade do Menu Mobile
             mobileMenuBtn.addEventListener('click', () => {
                 mobileMenu.classList.toggle('hidden');
@@ -1308,7 +1407,7 @@
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.1 
+                threshold: 0.1 
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
@@ -1335,9 +1434,13 @@
             
             // 4. Carregar Testemunhos ao carregar a página
             fetchTestimonials();
+            
+            // 5. Adiciona Listener para o formulário de Testemunhos
+            testimonialForm.addEventListener('submit', handleTestimonialSubmission);
+            updateSubmitButtonState(); // Inicializa o estado do botão
+            
 
-
-            // 5. Modal Event Listeners
+            // 6. Modal Event Listeners
             projectCards.forEach(card => {
                 card.addEventListener('click', () => {
                     const projectKey = card.getAttribute('data-project');
@@ -1354,7 +1457,7 @@
                 }
             });
 
-            // 6. Back to Top Logic e Efeito Blur
+            // 7. Back to Top Logic e Efeito Blur
             window.addEventListener('scroll', () => {
                 const header = document.getElementById('mobile-header');
                 const sidebar = document.getElementById('sidebar');
@@ -1382,7 +1485,7 @@
         });
 
 
-        // 7. Efeito de Partículas no Fundo
+        // 8. Efeito de Partículas no Fundo
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
