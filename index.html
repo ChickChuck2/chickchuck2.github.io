@@ -920,12 +920,17 @@
 
             testimonials.forEach(t => {
                 const card = document.createElement('div');
-                // Adicionado w-80 md:w-96 e flex-shrink-0 para layout horizontal
-                card.className = 'bg-slate-700 p-6 rounded-xl glow-shadow shadow-lg space-y-4 flex-shrink-0 w-80 md:w-96'; 
+                // Alteração: Card agora tem max-h-[300px] e usa flex-col para controle de espaçamento interno.
+                card.className = 'bg-slate-700 p-6 rounded-xl glow-shadow shadow-lg flex flex-col justify-between flex-shrink-0 w-80 md:w-96 max-h-[300px] h-full'; 
+                
                 card.innerHTML = `
-                    <div class="text-3xl text-blue-400 mb-4">“</div>
-                    <p class="text-base italic text-gray-200">${t.quote}</p>
-                    <div class="border-t border-slate-600 pt-4">
+                    <div>
+                        <div class="text-3xl text-blue-400 mb-4">“</div>
+                        <!-- NOVO: Adicionado max-h-[150px] e overflow-y-auto para scroll interno do texto longo -->
+                        <p class="text-base italic text-gray-200 max-h-[150px] overflow-y-auto pr-2 mb-4">${t.quote}</p> 
+                    </div>
+                    
+                    <div class="border-t border-slate-600 pt-4 mt-auto">
                         <p class="font-bold text-white text-lg">${t.name}</p>
                         <p class="text-blue-300 text-sm">${t.role}</p>
                         <p class="text-gray-500 text-xs mt-1">Fonte: ${t.source}</p>
