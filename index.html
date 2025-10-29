@@ -226,6 +226,7 @@
                 <a href="#stats" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Estatísticas</a>
                 <a href="#otimizacao" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Otimização</a>
                 <a href="#projetos" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Projetos</a>
+                <a href="#testemunhos" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Testemunhos</a>
                 <a href="#contato" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-700 transition-colors duration-300">Contato</a>
             </div>
         </div>
@@ -272,6 +273,11 @@
                 <!-- Icone Código -->
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                 <span class="font-medium">Projetos</span>
+            </a>
+            <a href="#testemunhos" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
+                <!-- Icone Citação -->
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h10M7 16h10M9 3v2m6-2v2M9 19v2m6-2v2M5 8h.01M19 8h.01M5 12h.01M19 12h.01M5 16h.01M19 16h.01M3 6h18v12a2 2 0 01-2 2H5a2 2 0 01-2-2V6z"></path></svg>
+                <span class="font-medium">Testemunhos</span>
             </a>
             <a href="#contato" class="flex items-center space-x-3 text-gray-300 hover:text-blue-400 p-3 rounded-lg hover:bg-slate-800 transition-colors duration-300">
                 <!-- Icone Contato (e.g., Mail/Message) -->
@@ -631,6 +637,17 @@
 
             </div>
         </section>
+
+        <!-- Seção 7.5: Testemunhos (NOVA SEÇÃO) -->
+        <section id="testemunhos" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
+            <h2 class="text-4xl font-bold mb-12 border-b-4 border-blue-500 pb-2 inline-block text-glow">Testemunhos</h2>
+            
+            <div id="testimonials-container" class="space-y-8">
+                <p id="loading-message" class="text-gray-400 text-center">Carregando depoimentos...</p>
+                <!-- Cards de Testemunhos serão injetados aqui pelo JavaScript -->
+            </div>
+            <p id="error-message" class="text-red-400 text-center mt-4 hidden">Erro ao carregar os depoimentos. Exibindo dados de demonstração.</p>
+        </section>
         
         <!-- Seção 8: Contato e Redes Sociais (SEM FORMULÁRIO) -->
         <section id="contato" class="p-8 sm:p-16 bg-slate-800 rounded-xl glow-shadow my-16 fade-in-up">
@@ -779,7 +796,75 @@
                 ]
             }
         };
+        
+        // --- DADOS E LÓGICA DO TESTEMUNHOS ---
+        const GOOGLE_SHEET_API_URL = 'https://script.google.com/macros/s/SEU_ID_DO_APP_AQUI/exec'; // URL fictícia
+        
+        const placeholderTestimonials = [
+            {
+                name: "Dr. Leda Santos",
+                role: "Professora de C# (SENAI - Mock)",
+                quote: "Carlos demonstrou uma proficiência excepcional em C# e POO. Sua capacidade de criar utilitários complexos como Oveger, priorizando a usabilidade e a arquitetura limpa, é de altíssimo nível. Um talento nato para a engenharia de software.",
+                source: "LinkedIn",
+            },
+            {
+                name: "Eng. Marco Almeida",
+                role: "Mentor de Projetos (Mock)",
+                quote: "A paixão de Carlos por resolver problemas complexos com soluções elegantes me lembra o espírito do Senku. Sua dedicação em otimizar cada linha de código é um diferencial raro em desenvolvedores de sua idade. O projeto Inceptum é prova disso.",
+                source: "LinkedIn",
+            },
+        ];
 
+        function renderTestimonials(testimonials) {
+            const container = document.getElementById('testimonials-container');
+            const loadingMessage = document.getElementById('loading-message');
+            container.innerHTML = '';
+            loadingMessage.classList.add('hidden');
+
+            if (testimonials.length === 0) {
+                container.innerHTML = '<p class="text-gray-400 text-center">Nenhum depoimento encontrado.</p>';
+                return;
+            }
+
+            testimonials.forEach(t => {
+                const card = document.createElement('div');
+                card.className = 'bg-slate-700 p-6 rounded-xl glow-shadow shadow-lg space-y-4';
+                card.innerHTML = `
+                    <div class="text-3xl text-blue-400 mb-4">“</div>
+                    <p class="text-xl italic text-gray-200">${t.quote}</p>
+                    <div class="border-t border-slate-600 pt-4">
+                        <p class="font-bold text-white text-lg">${t.name}</p>
+                        <p class="text-blue-300 text-sm">${t.role}</p>
+                        <p class="text-gray-500 text-xs mt-1">Fonte: ${t.source}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function fetchTestimonials() {
+            try {
+                // Tenta carregar do Google Sheet (URL fictícia no momento)
+                const response = await fetch(GOOGLE_SHEET_API_URL);
+                if (!response.ok) throw new Error('Falha ao carregar dados da API');
+                
+                const data = await response.json();
+                
+                if (data && Array.isArray(data.testimonials)) {
+                    renderTestimonials(data.testimonials);
+                } else {
+                    throw new Error('Formato de dados inválido.');
+                }
+                
+            } catch (error) {
+                console.error("Erro ao buscar depoimentos:", error.message);
+                document.getElementById('error-message').classList.remove('hidden');
+                // Renderiza os dados de demonstração (fallback)
+                renderTestimonials(placeholderTestimonials);
+            }
+        }
+        // --- FIM LÓGICA DO TESTEMUNHOS ---
+        
         const modal = document.getElementById('project-modal');
         const modalContentWrapper = document.getElementById('modal-content-wrapper');
         const modalTitle = document.getElementById('modal-title');
@@ -1256,9 +1341,15 @@
 
             // Inicia a observação da seção de estatísticas
             statsObserver.observe(statsSection);
+            
+            // Inicia a observação do radar chart
+            radarObserver.observe(habilidadesSection);
+            
+            // 4. Carregar Testemunhos ao carregar a página
+            fetchTestimonials();
 
 
-            // 4. Modal Event Listeners
+            // 5. Modal Event Listeners
             projectCards.forEach(card => {
                 card.addEventListener('click', () => {
                     const projectKey = card.getAttribute('data-project');
@@ -1275,7 +1366,7 @@
                 }
             });
 
-            // 5. Back to Top Logic
+            // 6. Back to Top Logic e Efeito Blur
             window.addEventListener('scroll', () => {
                 const header = document.getElementById('mobile-header');
                 const sidebar = document.getElementById('sidebar');
@@ -1288,26 +1379,18 @@
                     backToTopBtn.classList.add('opacity-0', 'translate-y-4');
                 }
                 
-                // 6. Efeito de Blur na barra de navegação ao rolar (Desktop e Mobile)
+                // Efeito de Blur na barra de navegação ao rolar (Desktop e Mobile)
                 if (window.scrollY > 50) {
-                    // Mobile Header: Adiciona a classe que tem o blur/sombra
                     header.classList.add('scrolled-header');
                     header.classList.remove('bg-[#0F172A]');
-                    
-                    // Sidebar Desktop: Adiciona a classe que tem o blur/sombra
                     sidebar.classList.add('scrolled-header');
                 } else {
-                    // Mobile Header: Remove a classe
                     header.classList.remove('scrolled-header');
                     header.classList.add('bg-[#0F172A]');
-
-                    // Sidebar Desktop: Remove a classe
                     sidebar.classList.remove('scrolled-header');
                 }
             });
 
-            // Inicia a observação do radar chart
-            radarObserver.observe(habilidadesSection);
         });
 
 
