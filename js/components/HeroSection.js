@@ -7,7 +7,7 @@ export class HeroSection extends HTMLElement {
                 <div id="three-container" class="hidden sm:block"></div>
                 <div class="space-y-6 max-w-4xl z-20">
                     <h1 class="text-5xl sm:text-7xl font-extrabold leading-tight">
-                        <span data-i18n="hero.greeting">Olá, eu sou</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 text-glow" data-i18n="hero.name">ChickChuck2</span>.
+                        <span data-i18n="hero.greeting">Olá, eu sou</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600 text-glow" data-i18n="hero.name">Carlos Silva</span>.
                     </h1>
                     <p class="text-xl sm:text-2xl text-gray-300 h-8">
                         <span id="typing-text" class="font-semibold text-white"></span>
@@ -38,24 +38,24 @@ export class HeroSection extends HTMLElement {
         if (!typingElement) return;
 
         const professions = [
-            i18n.getTranslation('hero.prof.dev'), 
-            i18n.getTranslation('hero.prof.utils'), 
+            i18n.getTranslation('hero.prof.dev'),
+            i18n.getTranslation('hero.prof.utils'),
             i18n.getTranslation('hero.prof.game'),
             i18n.getTranslation('hero.prof.opt')
         ];
-        
+
         // Prevent stacking if initialized multiple times
         typingElement.textContent = '';
-        
+
         let professionIndex = 0;
         let charIndex = 0;
         let isDeleting = false;
-        
+
         const typeWriter = () => {
             if (!this.isConnected) return; // Parar se o componente for removido
-            
+
             const currentProfession = professions[professionIndex] || '';
-            
+
             if (isDeleting) {
                 typingElement.textContent = currentProfession.substring(0, charIndex - 1);
                 charIndex--;
@@ -65,7 +65,7 @@ export class HeroSection extends HTMLElement {
             }
 
             let typeSpeed = 80;
-            if (isDeleting) typeSpeed = 40; 
+            if (isDeleting) typeSpeed = 40;
 
             if (!isDeleting && charIndex === currentProfession.length) {
                 typeSpeed = 2000;
