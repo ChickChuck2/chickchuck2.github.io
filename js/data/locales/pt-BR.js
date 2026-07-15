@@ -12,7 +12,7 @@ export const ptBR = {
 
     // Hero Section
     "hero.greeting": "Olá, eu sou",
-    "hero.name": "ChickChuck2",
+    "hero.name": "Carlos Silva",
     "hero.btn.projects": "Ver Meus Projetos",
     "hero.btn.cv": "Baixar Currículo",
 

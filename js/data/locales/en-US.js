@@ -12,7 +12,7 @@ export const enUS = {
 
     // Hero Section
     "hero.greeting": "Hi, I'm",
-    "hero.name": "ChickChuck2",
+    "hero.name": "Carlos Silva",
     "hero.btn.projects": "View My Projects",
     "hero.btn.cv": "Download Resume",
 
