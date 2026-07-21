@@ -1,4 +1,3 @@
-import { placeholderTestimonials } from '../data/testimonialsData.js';
 import { getFirebaseContext, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from '../utils/firebase.js';
 import { i18n } from '../utils/i18n.js';
 
@@ -52,11 +51,12 @@ export class TestimonialsSection extends HTMLElement {
 
         const { db, isFirebaseConfigured } = await getFirebaseContext();
 
-        // Se o Firebase não estiver configurado, usa placeholder
+        // Se o Firebase não estiver configurado, exibe erro diretamente (callback de erro)
         if (!isFirebaseConfigured) {
-            console.warn("Firebase não está configurado. Usando depoimentos de demonstração.");
-            this.testimonialsDataList = placeholderTestimonials;
-            this.renderTestimonials(placeholderTestimonials);
+            console.warn("Firebase não está configurado.");
+            container.innerHTML = `<div class="text-center p-6 bg-red-900/40 border border-red-500 rounded-xl text-red-300">
+                <p class="font-bold">${i18n.getTranslation('test.error')}</p>
+            </div>`;
             return;
         }
 
@@ -71,24 +71,13 @@ export class TestimonialsSection extends HTMLElement {
                 testimonials.push(doc.data());
             });
             
-            if (testimonials.length > 0) {
-                this.testimonialsDataList = testimonials;
-                this.renderTestimonials(testimonials);
-            } else {
-                // Se o banco estiver vazio, exibe os placeholders
-                this.testimonialsDataList = placeholderTestimonials;
-                this.renderTestimonials(placeholderTestimonials);
-            }
+            this.testimonialsDataList = testimonials;
+            this.renderTestimonials(testimonials);
         } catch (error) {
             console.error('Erro ao buscar depoimentos no Firebase:', error);
             container.innerHTML = `<div class="text-center p-6 bg-red-900/40 border border-red-500 rounded-xl text-red-300">
                 <p class="font-bold">${i18n.getTranslation('test.error')}</p>
             </div>`;
-            
-            setTimeout(() => {
-                this.testimonialsDataList = placeholderTestimonials;
-                this.renderTestimonials(placeholderTestimonials);
-            }, 3000);
         }
     }
 
