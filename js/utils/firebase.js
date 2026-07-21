@@ -6,9 +6,14 @@ let db = null;
 let isFirebaseConfigured = false;
 
 // Dynamic load of the gitignored firebaseConfig.json file to avoid exposure in the codebase
+// Dynamic load of the configuration. Tries Vercel Serverless Function first, then falls back to local JSON
 const initPromise = (async () => {
     try {
-        const response = await fetch('js/utils/firebaseConfig.json');
+        let response = await fetch('/api/firebaseConfig');
+        if (!response.ok) {
+            response = await fetch('js/utils/firebaseConfig.json');
+        }
+        
         if (response.ok) {
             const firebaseConfig = await response.json();
             
@@ -22,7 +27,7 @@ const initPromise = (async () => {
                 console.warn("Firebase configuration has placeholder values. Using fallback testimonials.");
             }
         } else {
-            console.warn(`Firebase config file not found (Status: ${response.status}). Using fallback testimonials.`);
+            console.warn(`Firebase config source not found. Using fallback testimonials.`);
         }
     } catch (e) {
         console.warn("Error loading Firebase configuration. Testimonials will fall back to demo mode.", e);
