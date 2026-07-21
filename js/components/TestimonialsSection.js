@@ -1,4 +1,5 @@
-import { GOOGLE_SHEET_API_URL, placeholderTestimonials } from '../data/testimonialsData.js';
+import { placeholderTestimonials } from '../data/testimonialsData.js';
+import { getFirebaseContext, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from '../utils/firebase.js';
 import { i18n } from '../utils/i18n.js';
 
 export class TestimonialsSection extends HTMLElement {
@@ -49,28 +50,37 @@ export class TestimonialsSection extends HTMLElement {
     async loadTestimonials() {
         const container = this.querySelector('#testimonials-container');
 
-        // Se a API não estiver configurada, usa placeholder
-        if (!GOOGLE_SHEET_API_URL || GOOGLE_SHEET_API_URL.trim() === '') {
+        const { db, isFirebaseConfigured } = await getFirebaseContext();
+
+        // Se o Firebase não estiver configurado, usa placeholder
+        if (!isFirebaseConfigured) {
+            console.warn("Firebase não está configurado. Usando depoimentos de demonstração.");
             this.testimonialsDataList = placeholderTestimonials;
             this.renderTestimonials(placeholderTestimonials);
             return;
         }
 
         try {
-            const response = await fetch(GOOGLE_SHEET_API_URL);
-            if (!response.ok) throw new Error('Falha na rede');
+            // Busca depoimentos ordenados pela data de criação em ordem decrescente (mais recentes primeiro)
+            const testimonialsCol = collection(db, 'testimonials');
+            const q = query(testimonialsCol, orderBy('createdAt', 'desc'));
+            const querySnapshot = await getDocs(q);
             
-            const data = await response.json();
+            const testimonials = [];
+            querySnapshot.forEach((doc) => {
+                testimonials.push(doc.data());
+            });
             
-            if (data && data.testimonials && data.testimonials.length > 0) {
-                this.testimonialsDataList = data.testimonials;
-                this.renderTestimonials(data.testimonials);
+            if (testimonials.length > 0) {
+                this.testimonialsDataList = testimonials;
+                this.renderTestimonials(testimonials);
             } else {
+                // Se o banco estiver vazio, exibe os placeholders
                 this.testimonialsDataList = placeholderTestimonials;
                 this.renderTestimonials(placeholderTestimonials);
             }
         } catch (error) {
-            console.error('Erro ao buscar depoimentos:', error);
+            console.error('Erro ao buscar depoimentos no Firebase:', error);
             container.innerHTML = `<div class="text-center p-6 bg-red-900/40 border border-red-500 rounded-xl text-red-300">
                 <p class="font-bold">${i18n.getTranslation('test.error')}</p>
             </div>`;
@@ -173,8 +183,10 @@ export class TestimonialsSection extends HTMLElement {
             const role = this.querySelector('#t-role').value;
             const source = this.querySelector('#t-source').value;
 
-            if (!GOOGLE_SHEET_API_URL || GOOGLE_SHEET_API_URL.trim() === '') {
-                feedback.textContent = "A API do Google Sheets não está configurada no código.";
+            const { db, isFirebaseConfigured } = await getFirebaseContext();
+
+            if (!isFirebaseConfigured) {
+                feedback.textContent = "O Firebase não está configurado.";
                 feedback.className = "mt-2 text-sm font-semibold text-red-400 block";
                 return;
             }
@@ -184,29 +196,23 @@ export class TestimonialsSection extends HTMLElement {
             submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
             try {
-                // Prepara FormData para o Google Apps Script
-                const formData = new FormData();
-                formData.append('quote', quote);
-                formData.append('name', name);
-                formData.append('role', role);
-                formData.append('source', source);
-
-                const response = await fetch(GOOGLE_SHEET_API_URL, {
-                    method: 'POST',
-                    body: formData
+                const testimonialsCol = collection(db, 'testimonials');
+                await addDoc(testimonialsCol, {
+                    quote,
+                    name,
+                    role: role || "",
+                    source: source || "",
+                    createdAt: serverTimestamp()
                 });
 
-                if (response.ok) {
-                    feedback.textContent = i18n.getTranslation('test.form.success');
-                    feedback.className = "mt-2 text-sm font-semibold text-green-400 block";
-                    form.reset();
-                    // Opcionalmente recarregar os depoimentos
-                    this.loadTestimonials();
-                } else {
-                    throw new Error(i18n.getTranslation('test.form.err'));
-                }
+                feedback.textContent = i18n.getTranslation('test.form.success');
+                feedback.className = "mt-2 text-sm font-semibold text-green-400 block";
+                form.reset();
+                
+                // Recarregar os depoimentos
+                this.loadTestimonials();
             } catch (error) {
-                console.error(error);
+                console.error("Erro ao enviar depoimento:", error);
                 feedback.textContent = `${i18n.getTranslation('test.form.err')}: ${error.message}`;
                 feedback.className = "mt-2 text-sm font-semibold text-red-400 block";
             } finally {

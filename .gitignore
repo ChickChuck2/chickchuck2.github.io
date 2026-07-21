@@ -1,0 +1,7 @@
+# Firebase configuration file containing credentials
+js/utils/firebaseConfig.json
+
+# Local files & system directories
+.vs/
+*.log
+tmp

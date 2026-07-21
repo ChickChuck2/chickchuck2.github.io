@@ -1,5 +1,3 @@
-export const GOOGLE_SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbyPAfeFeYoujcE0kZyXbo1daHo9qARJjuPPw5RGc1pCczW1tTcjSldGrkiicV6mAQinVg/exec';
-
 export const placeholderTestimonials = [
     { quote: 'Carlos demonstrou proficiência excepcional em POO e otimização de código, superando desafios complexos.', name: 'Dr. Leda Santos', role: 'Professora de C# (SENAI)', source: 'LinkedIn' },
     { quote: 'O projeto Oveger é um exemplo brilhante de como o Carlos transforma necessidades de produtividade em soluções de software elegantes.', name: 'Eng. Marco Almeida', role: 'Mentor de Projetos', source: 'E-mail' },
